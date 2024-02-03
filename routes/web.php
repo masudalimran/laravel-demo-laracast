@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -23,6 +24,8 @@ Route::post("/login", [LoginController::class, "store"])->middleware('guest')->n
 Route::post("/logout", [SessionController::class, "destroy"])->middleware('auth');
 
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
+
+Route::get('/{adminRoute}', [AdminPanelController::class, 'index'])->middleware('admin')->name('dashboard');
 
 // Route::get("/author/{author}", function (User $author) {
 //     Illuminate\Support\Facades\DB::listen(fn($query) => logger($query->sql));

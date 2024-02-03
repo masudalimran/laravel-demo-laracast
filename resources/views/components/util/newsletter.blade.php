@@ -2,7 +2,7 @@
 
     @error('email')
         <x-util.scroll-point />
-    @elseif(session()->has('success'))
+    @elseif(session()->has('subscribed'))
         <x-util.scroll-point />
     @enderror
 

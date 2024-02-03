@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+    .body-padding {
+        @apply mx-auto w-2/3;
+    }
+    .icon-clickable {
+        @apply cursor-pointer hover:text-primary transition;
+    }
+}
+
+/* For AlpineJS */
+[x-cloak] {
+    display: none !important;
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -16,16 +17,17 @@ Route::post('/post/{post:id}/comment', [PostCommentsController::class, 'store'])
 
 Route::get("/categories/{category:name}", [PostController::class, "showPostByCategory"])->name("category");
 
-Route::get("/register", [RegistrationController::class, "create"])->middleware('guest');
+Route::get("/register", [RegistrationController::class, "create"])->middleware('guest')->name('register-page');
 Route::post("/register", [RegistrationController::class, "store"])->middleware('guest')->name('register-user');
 
-Route::get("/login", [LoginController::class, "create"])->middleware('guest');
+Route::get("/login", [LoginController::class, "create"])->middleware('guest')->name('login-page');
 Route::post("/login", [LoginController::class, "store"])->middleware('guest')->name('login-user');
 Route::post("/logout", [SessionController::class, "destroy"])->middleware('auth');
 
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
 
-Route::get('/{adminRoute}', [AdminPanelController::class, 'index'])->middleware('admin')->name('dashboard');
+Route::get('/{adminRoute}', [AdminPanelController::class, 'index'])->middleware('admin')->name('admin-login');
+Route::get('/{adminRoute}/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('dashboard');
 
 // Route::get("/author/{author}", function (User $author) {
 //     Illuminate\Support\Facades\DB::listen(fn($query) => logger($query->sql));

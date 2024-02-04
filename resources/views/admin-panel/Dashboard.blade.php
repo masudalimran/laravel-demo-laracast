@@ -1,5 +1,4 @@
-<x-layout>
-    <x-slot:pageTitle>Admin Panel</x-slot:pageTitle>
-    <x-slot:mainContent>
-    </x-slot:mainContent>
-</x-layout>
+<x-admin-layout>
+    <x-slot:pageTitle>Dashboard</x-slot:pageTitle>
+    <x-slot:mainContent></x-slot:mainContent>
+</x-admin-layout>

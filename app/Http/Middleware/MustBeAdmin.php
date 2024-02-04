@@ -16,10 +16,15 @@ class MustBeAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $adminPath = 'admin';
-        if (request()->path() !== $adminPath) {
+        if (explode('/', request()->path())[0] !== $adminPath) {
             abort(404);
-        } else if (auth()->user()?->isAdmin !== 1) {
-            abort(403);
+        } else if (auth()->user()) {
+            if (auth()->user()?->isAdmin !== 1) {
+                abort(403);
+            } else if (request()->path() === $adminPath) {
+                return redirect()
+                    ->route('dashboard', ['adminRoute' => $adminPath]);
+            }
         }
         return $next($request);
     }

@@ -18,11 +18,16 @@
 </head>
 
 <body>
-    <div class="flex">
-        <div class="basis-1/2">
+    <div x-cloak class="flex"
+        x-data='{leftClass: "transform translate-y-[100vh]", rightClass: "transform -translate-y-[100vh]"}'
+        x-init="setTimeout(() => {
+            leftClass = '';
+            rightClass = ''
+        }, 0)">
+        <div :class="`basis-1/2 ${leftClass} transition duration-700`">
             <img src="/img/admin-panel/dashboard-banner.jpg" class="object-cover h-screen w-full -scale-x-100" />
         </div>
-        <div class="basis-1/2 flex justify-center items-center bg-secondary">
+        <div :class="`basis-1/2 flex justify-center items-center bg-secondary ${rightClass} transition duration-700`">
             <form action="/" method="post" class="border-2 border-primary py-16 px-10 rounded-xl">
                 <h1 class="text-5xl text-center font-rubik">Admin Login </h1>
                 <hr class="my-3" />

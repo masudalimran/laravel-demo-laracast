@@ -23,7 +23,7 @@ class menubar extends Component
      */
     public function render(): View|Closure|string
     {
-        $parameters = Route::current()->parameters();
+        $parameters = Route::current()?->parameters();
         $currentCategory = null;
         if ($parameters) {
             if (isset($parameters['post']))

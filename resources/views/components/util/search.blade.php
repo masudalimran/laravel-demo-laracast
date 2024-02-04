@@ -4,7 +4,7 @@
     $searchValid = true;
     $routeName = request()
         ->route()
-        ->getname();
+        ?->getname();
     if ($routeName === 'category' || $routeName === 'home') {
         $searchHref = request()->fullUrlWithQuery(['search' => null]);
     } else {

@@ -1,10 +1,12 @@
 <div class="m-2 p-6 bg-white rounded-xl" x-data="{ emailHasError: true }">
 
-    @error('email')
-        <x-util.scroll-point />
-    @elseif(session()->has('subscribed'))
-        <x-util.scroll-point />
-    @enderror
+    @isset($errors)
+        @error('email')
+            <x-util.scroll-point />
+        @elseif(session()->has('subscribed'))
+            <x-util.scroll-point />
+        @enderror
+    @endisset
 
     <p class="text-xl font-semibold">Subscribe Now </p>
     <p class="text-sm text-primary mt-2 uppercase"> {{ $subCount ?? 0 }} current subscriber
@@ -27,8 +29,10 @@
         </div>
     </form>
     <div class="h-8">
-        @error('email')
-            <p class="text-red-500 pl-2 mt-2" x-show="emailHasError">{{ $message ?? 'Something went wrong!' }}</p>
-        @enderror
+        @isset($errors)
+            @error('email')
+                <p class="text-red-500 pl-2 mt-2" x-show="emailHasError">{{ $message ?? 'Something went wrong!' }}</p>
+            @enderror
+        @endisset
     </div>
 </div>

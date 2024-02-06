@@ -16,7 +16,9 @@ class MustBeAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $adminPath = 'admin';
-        if (explode('/', request()->path())[0] !== $adminPath) {
+        $reqPathArr = explode('/', request()->path());
+
+        if ($reqPathArr[0] !== $adminPath) {
             abort(404);
         } else if (auth()->user()) {
             if (auth()->user()?->isAdmin !== 1) {
@@ -25,6 +27,8 @@ class MustBeAdmin
                 return redirect()
                     ->route('dashboard', ['adminRoute' => $adminPath]);
             }
+        } else if ($reqPathArr[0] === $adminPath && isset($reqPathArr[1])) {
+            return redirect($adminPath);
         }
         return $next($request);
     }

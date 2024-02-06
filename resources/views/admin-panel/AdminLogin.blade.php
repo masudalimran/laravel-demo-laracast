@@ -18,17 +18,17 @@
 </head>
 
 <body>
-    <div x-cloak class="flex"
-        x-data='{leftClass: "transform translate-y-[100vh]", rightClass: "transform -translate-y-[100vh]"}'
-        x-init="setTimeout(() => {
-            leftClass = '';
-            rightClass = ''
-        }, 0)">
-        <div :class="`basis-1/2 ${leftClass} transition duration-700`">
-            <img src="/img/admin-panel/dashboard-banner.jpg" class="object-cover h-screen w-full -scale-x-100" />
+    <div x-cloak class="flex" x-data='{show: false}' x-init="setTimeout(() => show = true, 0)">
+        <div :class="{ 'transform translate-y-[100vh]': !show && {{ $errors->isEmpty() }} }"
+            class="basis-1/2 transition duration-300">
+            <img src="/img/admin-panel/dashboard-banner-2.jpg"
+                class="object-cover h-screen w-full opacity-25 hover:opacity-100" />
         </div>
-        <div :class="`basis-1/2 flex justify-center items-center bg-secondary ${rightClass} transition duration-700`">
-            <form action="/" method="post" class="border-2 border-primary py-16 px-10 rounded-xl">
+        <div :class="{ 'transform -translate-y-[100vh]': !show && {{ $errors->isEmpty() }} }"
+            class="basis-1/2 flex justify-center items-center bg-secondary transition duration-300">
+            <form action="/admin" method="post" class="border-2 border-primary py-16 px-10 rounded-xl"
+                x-data='{emailHasError: true, passwordHasError: true}'>
+                @csrf
                 <h1 class="text-5xl text-center font-rubik">Admin Login </h1>
                 <hr class="my-3" />
                 <figure class="py-[5rem] w-full flex justify-center items-center h-[4px] ">
@@ -38,9 +38,15 @@
                 </figure>
 
                 <hr class="my-3" />
-                <x-util.input label="Admin Email" name="email" type="email"
-                    placeholder="Enter Admin Email Here..." />
-                <x-util.input-password />
+                <x-util.input label="Admin Email" name="email" type="email" required
+                    placeholder="Enter Admin Email Here..." x-on:input.change="emailHasError = false" />
+                @error('email')
+                    <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>
+                @enderror
+                <x-util.input-password required x-on:input.change="passwordHasError = false" />
+                @error('password')
+                    <p class="text-red-500" x-show="passwordHasError">{{ $message }}</p>
+                @enderror
                 <x-util.submit-button fullwidth text="Login As Admin" />
             </form>
         </div>

@@ -27,6 +27,7 @@ Route::post("/logout", [SessionController::class, "destroy"])->middleware('auth'
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
 
 Route::get('/{adminRoute}', [AdminPanelController::class, 'index'])->middleware('admin')->name('admin-login');
+Route::post('/{adminRoute}', [AdminPanelController::class, 'store'])->middleware('admin')->name('admin-login');
 Route::get('/{adminRoute}/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('dashboard');
 
 // Route::get("/author/{author}", function (User $author) {

@@ -10,4 +10,14 @@ class AdminPanelController extends Controller
     {
         return view('admin-panel.adminlogin');
     }
+
+    public function store()
+    {
+        $attributes = request()->validate([
+            'email' => 'required|min:9',
+            'password' => 'required|min:3',
+
+        ]);
+        return back();
+    }
 }

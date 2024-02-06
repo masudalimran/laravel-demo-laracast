@@ -22,10 +22,8 @@
     <main>
         {{ $mainContent }}
     </main>
+    <x-footer />
 
-    <footer>
-        <x-footer />
-    </footer>
     @if (session()->has('success'))
         <x-util.success-toaster :text="session('success')" />
     @elseif (session()->has('error'))

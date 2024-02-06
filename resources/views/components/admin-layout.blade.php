@@ -18,13 +18,13 @@
 </head>
 
 <body class="font-poppins bg-neutral-100">
-    <x-header />
+    <x-admin-panel.header />
     <main>
         {{ $mainContent }}
     </main>
 
     <footer>
-        <x-footer />
+        {{-- <x-footer /> --}}
     </footer>
     @if (session()->has('success'))
         <x-util.success-toaster :text="session('success')" />

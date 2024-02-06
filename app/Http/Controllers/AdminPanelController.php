@@ -45,4 +45,12 @@ class AdminPanelController extends Controller
 
         return back()->withInput()->withErrors($errors);
     }
+
+    public function destroy()
+    {
+        $username = auth()->user()->name;
+        auth()->logout();
+
+        return redirect('/')->with('error', "Hei $username, You logged out successfully!");
+    }
 }

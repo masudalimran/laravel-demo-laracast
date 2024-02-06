@@ -13,7 +13,7 @@
                 @error('email')
                     <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>
                 @enderror
-                <x-util.input-password label="Password" name="password" placeholder="*******" required
+                <x-util.input-password label="Password" name="password" placeholder="*******"
                     x-on:input.change="passwordHasError = false" />
                 @error('password')
                     <p class="text-red-500" x-show="passwordHasError">{{ $message }}</p>

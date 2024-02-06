@@ -20,16 +20,28 @@
 <body>
     <div x-cloak class="flex" x-data='{show: false}' x-init="setTimeout(() => show = true, 0)">
         <div :class="{ 'transform translate-y-[100vh]': !show && {{ $errors->isEmpty() }} }"
-            class="basis-1/2 transition duration-300">
+            class="basis-1/2 transition duration-300 relative group">
             <img src="/img/admin-panel/dashboard-banner-2.jpg"
-                class="object-cover h-screen w-full opacity-25 hover:opacity-100" />
+                class="object-cover h-screen opacity-25 group-hover:opacity-10 transition duration-150" />
+            <div
+                class=" absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center opacity-0 group-hover:opacity-100">
+                {{-- <p
+                        class="px-12 py-4 bg-primary text-white rounded-full text-2xl font-bold opacity-100 hover:opacity-100 hover:scale-110 transition duration-150 flex items-center gap-2">
+
+                        Go To
+                        Frontend
+                    </p> --}}
+                <x-util.button-v1 link="/" text="Go To Frontend">
+                    <x-feathericon-arrow-right-circle class="h-8 w-8" />
+                </x-util.button-v1>
+            </div>
         </div>
         <div :class="{ 'transform -translate-y-[100vh]': !show && {{ $errors->isEmpty() }} }"
-            class="basis-1/2 flex justify-center items-center bg-secondary transition duration-300">
+            class="basis-1/2 flex justify-center items-center bg-secondary transition  duration-300">
             <form action="/admin" method="post" class="border-2 border-primary py-16 px-10 rounded-xl"
                 x-data='{emailHasError: true, passwordHasError: true}'>
                 @csrf
-                <h1 class="text-5xl text-center font-rubik">Admin Login </h1>
+                <h1 class="text-5xl text-center font-rubik">Admin Login</h1>
                 <hr class="my-3" />
                 <figure class="py-[5rem] w-full flex justify-center items-center h-[4px] ">
                     <a href="/">
@@ -43,7 +55,7 @@
                 @error('email')
                     <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>
                 @enderror
-                <x-util.input-password required x-on:input.change="passwordHasError = false" />
+                <x-util.input-password x-on:input.change="passwordHasError = false" />
                 @error('password')
                     <p class="text-red-500" x-show="passwordHasError">{{ $message }}</p>
                 @enderror

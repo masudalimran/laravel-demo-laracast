@@ -37,13 +37,14 @@ class PostController extends Controller
     public function showPostByCategory(Category $category)
     {
         $posts = Post::with("category", "author");
-        $postsByCategory = $posts->filter($category->id);
+        $postsByCategory = $posts->where("category_id", $category->id)->orderBy('title')->get();
+        $directedPosts = $posts->filter($category->id);
         if (request('search')) {
-            $postsByCategory = $postsByCategory->get();
+            $directedPosts = $directedPosts->get();
         } else
-            $postsByCategory = $postsByCategory->paginate(5);
+            $directedPosts = $directedPosts->paginate(5);
         return view('category', [
-            "directedPosts" => $postsByCategory,
+            "directedPosts" => $directedPosts,
             "postsByCategory" => $postsByCategory,
             "currentCategory" => $category,
         ]);

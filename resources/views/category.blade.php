@@ -9,7 +9,8 @@
                         <x-post.mini-card :post="$post" />
                     </div>
                 @elseif ($loop->iteration === 2)
-                    <div class="col-start-2 col-end-3 row-start-1 row-end-3">
+                    <div
+                        class="col-start-2 {{ count($postsByCategory) < 5 ? 'col-end-4' : 'col-end-3' }} row-start-1 row-end-3">
                         <x-post.focus-card :post="$post" />
                     </div>
                 @else
@@ -47,7 +48,7 @@
 
             {{-- Directed Content Start --}}
             <section class="bg-white rounded-md">
-                @if (count($directedPosts) > 1)
+                @if (count($directedPosts) > 0)
                     @if (request('search'))
                         <p class="p-4 text-center text-2xl bg-primary text-white rounded-xl capitalize">
                             {{ count($directedPosts) }} Search result found

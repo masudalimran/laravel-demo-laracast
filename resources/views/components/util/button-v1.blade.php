@@ -1,4 +1,4 @@
-@props(['text', 'isActive', 'link', 'prefix', 'fullWidth', 'noRound'])
+@props(['text', 'isActive', 'link', 'fullWidth', 'noRound'])
 <a href="{{ $link ?? '' }}" class="{{ isset($link) ? '' : 'pointer-events-none' }} ">
     <button
         class="font-bold text-2xl text-center my-4 uppercase px-4 py-2 border-2 border-primary

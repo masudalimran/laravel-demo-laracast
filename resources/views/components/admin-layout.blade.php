@@ -14,7 +14,7 @@
     {{-- Css File Import --}}
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-    <title>Admin | {{ $pageTitle }}</title>
+    <title>{{ $pageTitle }} | Admin Panel</title>
 </head>
 
 <body class="font-poppins bg-neutral-100">

@@ -11,6 +11,16 @@ class ManagePostController extends Controller
     {
         $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(6);
 
+        if (request('create-post')) {
+            return view('admin-panel.CreatePost');
+        }
+        if (request('edit-post')) {
+            $currentPost = Post::with('category', 'author')->find(request('edit-post'));
+            return view('admin-panel.EditPost', [
+                'currentPost' => $currentPost
+            ]);
+        }
+
         $data = [
             'posts' => $posts
         ];

@@ -6,7 +6,7 @@
 <ul class="flex items-center gap-6 text-xl font-thin">
     @foreach ($menus as $menuKey => $menuName)
         <a href="/admin/dashboard/{{ $menuKey }}"
-            class="{{ $path === $menuKey ? 'text-black underline pointer-events-none' : 'hover:underline cursor-pointer' }}">
+            class="{{ $path === $menuKey ? 'text-black underline' : 'hover:underline cursor-pointer' }}">
             <li>
                 {{ $menuName }}
             </li>

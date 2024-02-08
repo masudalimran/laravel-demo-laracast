@@ -25,12 +25,6 @@
                 class="object-cover h-screen opacity-25 group-hover:opacity-10 transition duration-150" />
             <div
                 class=" absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center opacity-0 group-hover:opacity-100">
-                {{-- <p
-                        class="px-12 py-4 bg-primary text-white rounded-full text-2xl font-bold opacity-100 hover:opacity-100 hover:scale-110 transition duration-150 flex items-center gap-2">
-
-                        Go To
-                        Frontend
-                    </p> --}}
                 <x-util.button-v1 link="/" text="Go To Frontend">
                     <x-feathericon-arrow-right-circle class="h-8 w-8" />
                 </x-util.button-v1>
@@ -50,7 +44,7 @@
                 </figure>
 
                 <hr class="my-3" />
-                <x-util.input label="Admin Email" name="email" type="email" required
+                <x-util.input label="Admin Email" name="email" type="email" required autofocus
                     placeholder="Enter Admin Email Here..." x-on:input.change="emailHasError = false" />
                 @error('email')
                     <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>

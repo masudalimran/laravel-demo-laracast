@@ -13,8 +13,8 @@
                 <x-footer.prefooter />
             </section>
         </div>
-        <div class="flex justify-center my-2 rounded bg-white">
-            <div class="basis-3/5">
+        <div class=" rounded bg-white">
+            <div class="max-w-md m-auto">
                 <x-util.newsletter />
             </div>
         </div>

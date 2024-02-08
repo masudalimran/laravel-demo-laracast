@@ -26,10 +26,18 @@ Route::post("/logout", [SessionController::class, "destroy"])->middleware('auth'
 
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
 
-Route::get('/{adminRoute}', [AdminPanelController::class, 'index'])->middleware('admin')->name('admin-login');
-Route::post('/{adminRoute}', [AdminPanelController::class, 'store'])->middleware('admin')->name('admin-login');
-Route::post('/{adminRoute}/logout', [AdminPanelController::class, 'destroy'])->middleware('admin')->name('admin-login');
-Route::get('/{adminRoute}/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('dashboard');
+
+Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
+    Route::get('/', [AdminPanelController::class, 'index'])->name('admin-login');
+    Route::post('/', [AdminPanelController::class, 'store'])->name('admin-login');
+    Route::post('/logout', [AdminPanelController::class, 'destroy'])->name('admin-login');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/post', function () {
+            return view('admin-panel.dashboard');
+        });
+    });
+});
 
 // Route::get("/author/{author}", function (User $author) {
 //     Illuminate\Support\Facades\DB::listen(fn($query) => logger($query->sql));

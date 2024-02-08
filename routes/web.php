@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ManagePostController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -33,9 +34,7 @@ Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
     Route::post('/logout', [AdminPanelController::class, 'destroy'])->name('admin-login');
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/post', function () {
-            return view('admin-panel.dashboard');
-        });
+        Route::get('/post', [ManagePostController::class, 'index'])->name('post-index');
     });
 });
 

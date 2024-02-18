@@ -10,7 +10,7 @@
                         $backUrl = '/admin/dashboard';
                     }
                 @endphp
-                <x-util.button-v1 text="Go Back" link="{{ $backUrl }}" />
+                <x-util.button-v1 text="Go Back" link="{{ $backUrl }}" alternate />
                 <x-util.button-v1 text="Create Post" isActive />
             </div>
             <form method="POST" action="/post" class="w-[500px] m-auto" x-data="{ titleHasError: true, excerptHasError: true, publishedAtHasError: true }">

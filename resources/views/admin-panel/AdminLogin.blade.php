@@ -46,7 +46,7 @@
                 <hr class="my-3" />
                 <x-util.input label="Admin Email" name="email" type="email" required autofocus
                     placeholder="Enter Admin Email Here..." />
-                <x-util.input-password />
+                <x-util.input-password label="Password" name="password" placeholder="*******" />
                 <x-util.submit-button fullwidth text="Login As Admin" />
             </form>
         </div>

@@ -3,7 +3,7 @@
     <a href="/posts/{{ $post->id }}">
         @php
             $imageSerial = $post->id + 1;
-            $imgUrl = "/img/blogs/blog-$imageSerial.jpg";
+            $imgUrl = $post->imgUrl;
         @endphp
         <x-util.lazy-img :imgUrl="$imgUrl" class="h-[300px] w-full" />
     </a>

@@ -9,7 +9,15 @@ class Post extends Model
 {
     use HasFactory;
     protected $guarded = ["id", "created_at", "updated_at"];
-    protected $fillable = ["title", "excerpt", "body", "published_at"];
+    protected $fillable = [
+        "title",
+        "excerpt",
+        "body",
+        "published_at",
+        "category_id",
+        "user_id",
+        'imgUrl'
+    ];
 
     public function scopeFilter($query, int|null $category_id = null)
     {

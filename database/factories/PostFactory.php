@@ -18,7 +18,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $randomImageGenerate = "image-" . mt_rand(1, 6) . ".jpg";
+        $randomImageGenerate = "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
         return [
             'title' => fake()->text(30),
             "excerpt" => fake()->text(60),

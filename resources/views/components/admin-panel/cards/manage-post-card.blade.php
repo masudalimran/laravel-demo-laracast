@@ -32,7 +32,7 @@
                     </p>
                 @endif
                 <p>Published At: <span
-                        class="ml-2 font-light text-blue-500">{{ \Carbon\Carbon::parse($post->published_at)->toDayDateTimeString() }}</span>
+                        class="ml-2 font-light text-blue-500">{{ \Carbon\Carbon::parse($post->published_at ?? $post->created_at)->toDayDateTimeString() }}</span>
                 </p>
             </div>
             <hr class="my-4" />
@@ -52,7 +52,6 @@
                 </a>
             </div>
         </div>
-        <img src="/img/blogs/blog-{{ $post->id }}.jpg"
-            class="w-[200px] object-cover rounded opacity-50 group-hover:opacity-100" />
+        <img src="{{ $post->imgUrl }}" class="w-[200px] object-cover rounded opacity-50 group-hover:opacity-100" />
     </div>
 </article>

@@ -4,7 +4,7 @@
     <div class="relative">
         <input :type="type" required
             :class="{ '!border-orange-500 focus:!border-orange-500': type === 'text' }"
-            name="{{ $name ?? 'password' }}"
+            name="{{ $name ?? 'password' }}" id="{{ $name ?? '' }}"
             class="w-full my-2 px-4 py-2 rounded-full outline-none border-white focus:border-primary border-2"
             placeholder="{{ $placeholder ?? '******' }}" value="{{ old($name ?? '') }}"
             x-on:input.change="hasError = false" />

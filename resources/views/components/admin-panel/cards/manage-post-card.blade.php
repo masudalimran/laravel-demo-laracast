@@ -32,7 +32,7 @@
                     </p>
                 @endif
                 <p>Published At: <span
-                        class="ml-2 font-light text-blue-500">{{ \Carbon\Carbon::parse($post->published_at ?? $post->created_at)->toDayDateTimeString() }}</span>
+                        class="ml-2 font-light text-blue-500">{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->toDayDateTimeString() : 'N/A' }}</span>
                 </p>
             </div>
             <hr class="my-4" />
@@ -43,7 +43,7 @@
                     Delete
                 </div>
 
-                <a href="{{ url()->full() }}/edit?id={{ $post->id }}">
+                <a href="{{ url()->current() }}/edit?id={{ $post->id }}">
                     <div
                         class="flex items-center gap-2 text-blue-400 hover:bg-blue-500 hover:text-white transition cursor-pointer text-xl border-2 rounded-full px-4 py-2 border-blue-400 hover:border-blue-500">
                         <x-feathericon-edit class="" />

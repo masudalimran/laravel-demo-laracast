@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class EditPostController extends Controller
         if (request('id')) {
             $currentPost = Post::with('category', 'author')->find(request('id'));
             return view('admin-panel.edit-post.index', [
-                'currentPost' => $currentPost
+                'currentPost' => $currentPost,
+                'categories' => Category::orderBy('name')->get()
             ]);
         }
     }

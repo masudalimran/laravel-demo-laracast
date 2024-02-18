@@ -1,16 +1,58 @@
 <x-admin-layout>
     <x-slot:pageTitle>Edit Post</x-slot:pageTitle>
     <x-slot:mainContent>
-        <section class="body-padding">
-            <div class="max-w-md mx-auto">
-                <x-util.button-v1 text="Edit Post" fullWidth noRound />
-                <form action="/" method="post" class="w-full">
-                    <x-util.input label="Title" name="title" value="{{ $currentPost->title }}" />
-                    <x-util.input label="Excerpt" name="excerpt" value="{{ $currentPost->excerpt }}" />
-                    <x-util.input label="Body" name="body" value="{{ $currentPost->body }}" />
-                    <x-util.submitButton text="Update" fullwidth />
-                </form>
+        <section class="body-padding mx-auto mt-10 mb-44">
+            <div class="flex justify-between items-center gap-2 w-[500px] mx-auto">
+                @php
+                    $backUrl = url()->previous();
+                    if (url()->full() === url()->previous()) {
+                        $backUrl = '/admin/dashboard';
+                    }
+                @endphp
+                <button class="text-2xl text-red-300 hover:text-red-500 transition">
+                    <a href="{{ $backUrl }}">
+                        <x-feathericon-arrow-left-circle class="h-14 w-14" />
+                    </a>
+                </button>
+                <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
             </div>
+            <form method="POST" action="{{ url()->current() }}" class="w-[500px] m-auto">
+                @csrf
+                <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
+                    :prevData="$currentPost->title" autofocus />
+                <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required
+                    :prevData="$currentPost->excerpt" />
+                <x-util.input-text-area label="Body of post" name="body" required :prevData="$currentPost->body" />
+
+                @php
+                    $prevPublishedAt = null;
+                    if ($currentPost->published_at) {
+                        $prevPublishedAt = date('Y-m-d', strtotime($currentPost->published_at));
+                    }
+                @endphp
+                <x-util.input label="Publication Date" name="published_at" placeholder="Published At..." type="date"
+                    :prevData="$prevPublishedAt" />
+                <div class="my-4">
+                    <label for="category_id" class="font-semibold w-full">Category</label>
+                    <select class="px-4 py-2 rounded-full w-full my-2" name="category_id" id="category_id">
+                        @foreach ($categories as $category)
+                            @if (old('category_id'))
+                                <option value={{ $category->id }}
+                                    {{ old('category_id') === $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @else
+                                <option value={{ $category->id }}
+                                    {{ $currentPost->category_id === $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <x-util.submit-button text="Update Post" fullwidth />
+            </form>
+
         </section>
     </x-slot:mainContent>
 </x-admin-layout>

@@ -1,5 +1,5 @@
 @props(['label', 'placeholder', 'name'])
-<div x-data="{ type: 'password', hasError: true }">
+<div x-data="{ type: 'password', hasError: true }" class="my-4">
     <label for="name" class="w-full font-semibold">{{ $label ?? 'Password' }}</label>
     <div class="relative">
         <input :type="type" required

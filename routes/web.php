@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\CreatePostController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EditPostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManagePostController;
 use App\Http\Controllers\NewsletterController;
@@ -34,7 +36,12 @@ Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
     Route::post('/logout', [AdminPanelController::class, 'destroy'])->name('admin-login');
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/post', [ManagePostController::class, 'index'])->name('post-index');
+        Route::prefix('post')->group(function () {
+            Route::get('/', [ManagePostController::class, 'index'])->name('post-page');
+            Route::get('/create', [CreatePostController::class, 'index'])->name('create-post-page');
+            Route::post('/create', [CreatePostController::class, 'store'])->name('create-post');
+            Route::get('/edit', [EditPostController::class, 'index'])->name('edit-post-page');
+        });
     });
 });
 

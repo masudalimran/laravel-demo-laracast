@@ -22,17 +22,17 @@
             <hr class="my-4" />
             <div class="[&>p]:text-md font-thin">
                 <p>Created At: <span
-                        class="ml-2 font-light text-primary">{{ \Carbon\Carbon::parse($post->created_at) }}</span>
+                        class="ml-2 font-light text-primary">{{ \Carbon\Carbon::parse($post->created_at)->toDayDateTimeString() }}</span>
                 </p>
                 @if ($post->updated_at !== $post->created_at)
                     <p class="text-orange-500">Not Yet Updated</p>
                 @else
                     <p>Updated At: <span
-                            class="ml-2 font-light text-orange-500">{{ \Carbon\Carbon::parse($post->updated_at) }}</span>
+                            class="ml-2 font-light text-orange-500">{{ \Carbon\Carbon::parse($post->updated_at)->toDayDateTimeString() }}</span>
                     </p>
                 @endif
                 <p>Published At: <span
-                        class="ml-2 font-light text-blue-500">{{ \Carbon\Carbon::parse($post->published_at) }}</span>
+                        class="ml-2 font-light text-blue-500">{{ \Carbon\Carbon::parse($post->published_at)->toDayDateTimeString() }}</span>
                 </p>
             </div>
             <hr class="my-4" />
@@ -43,7 +43,7 @@
                     Delete
                 </div>
 
-                <a href="?edit-post={{ $post->id }}">
+                <a href="{{ url()->full() }}/edit?id={{ $post->id }}">
                     <div
                         class="flex items-center gap-2 text-blue-400 hover:bg-blue-500 hover:text-white transition cursor-pointer text-xl border-2 rounded-full px-4 py-2 border-blue-400 hover:border-blue-500">
                         <x-feathericon-edit class="" />

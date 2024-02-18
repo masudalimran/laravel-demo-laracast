@@ -1,19 +1,22 @@
 <x-admin-layout>
     <x-slot:pageTitle>Create Post</x-slot:pageTitle>
     <x-slot:mainContent>
-
         <section class="body-padding mx-auto mt-10 mb-44">
-            <div class="flex justify-center items-center gap-2">
+            <div class="flex justify-between items-center gap-2 w-[500px] mx-auto">
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
                         $backUrl = '/admin/dashboard';
                     }
                 @endphp
-                <x-util.button-v1 text="Go Back" link="{{ $backUrl }}" alternate />
-                <x-util.button-v1 text="Create Post" isActive />
+                <button class="text-2xl text-red-300 hover:text-red-500 transition">
+                    <a href="{{ $backUrl }}">
+                        <x-feathericon-arrow-left-circle class="h-14 w-14" />
+                    </a>
+                </button>
+                <x-util.button-v1 text="Create Post" isActive fullWidth />
             </div>
-            <form method="POST" action="/post" class="w-[500px] m-auto" x-data="{ titleHasError: true, excerptHasError: true, publishedAtHasError: true }">
+            <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto" x-data="{ titleHasError: true, excerptHasError: true, publishedAtHasError: true }">
                 @csrf
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
                     autofocus />
@@ -21,7 +24,13 @@
                 <x-util.input-text-area label="Body of post" name="body" />
                 <x-util.input label="Publication Date" name="published_at" placeholder="Published At..."
                     type="date" />
-                <div class="mt-2 flex gap-2 items-center">
+                <select class="px-4 py-2 rounded-full w-full my-4">
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 4</option>
+                    <option>option 5</option>
+                </select>
+                <div class="my-4 flex gap-2 items-center">
                     <input type="checkbox" name="recreate" class="h-4 w-4 cursor-pointer">
                     <label for="recreate" class="">Create another after this one</label>
                 </div>

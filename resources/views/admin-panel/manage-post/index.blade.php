@@ -8,7 +8,7 @@
         </section>
 
         <div class="fixed bottom-20 right-12 z-20">
-            <x-util.icon-button text="Create" link="?create-post=true">
+            <x-util.icon-button text="Create" link="{{ url()->full() }}/create">
                 <x-feathericon-plus />
             </x-util.icon-button>
         </div>

@@ -1,5 +1,6 @@
 @props(['text', 'isActive', 'link', 'fullWidth', 'noRound', 'alternate'])
-<a href="{{ $link ?? '' }}" class="{{ isset($link) ? '' : 'pointer-events-none' }} ">
+<a href="{{ $link ?? '' }}"
+    class="{{ isset($link) ? '' : 'pointer-events-none' }} {{ isset($fullWidth) ? 'w-full basis-full' : '' }}">
     <button
         class="font-bold text-2xl text-center my-4 uppercase px-4 py-2 border-2 border-primary
             {{ isset($isActive)

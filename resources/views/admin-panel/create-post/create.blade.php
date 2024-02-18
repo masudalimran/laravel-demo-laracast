@@ -13,23 +13,19 @@
                 <x-util.button-v1 text="Go Back" link="{{ $backUrl }}" />
                 <x-util.button-v1 text="Create Post" isActive />
             </div>
-            <form method="POST" action="/login" class="w-[500px] m-auto" x-data="{ emailHasError: true, passwordHasError: true }">
+            <form method="POST" action="/post" class="w-[500px] m-auto" x-data="{ titleHasError: true, excerptHasError: true, publishedAtHasError: true }">
                 @csrf
-                <x-util.input label="Your Email" name="email" placeholder="abc@example.com" type="email" required
-                    autofocus x-on:input.change="emailHasError = false" />
-                @error('email')
-                    <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>
-                @enderror
-                <x-util.input-password label="Password" name="password" placeholder="*******"
-                    x-on:input.change="passwordHasError = false" />
-                @error('password')
-                    <p class="text-red-500" x-show="passwordHasError">{{ $message }}</p>
-                @enderror
+                <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
+                    autofocus />
+                <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required />
+                <x-util.input-text-area label="Body of post" name="body" />
+                <x-util.input label="Publication Date" name="published_at" placeholder="Published At..."
+                    type="date" />
                 <div class="mt-2 flex gap-2 items-center">
-                    <input type="checkbox" name="remember" checked class="h-4 w-4 cursor-pointer">
-                    <label for="remember" class="">Remember Me</label>
+                    <input type="checkbox" name="recreate" class="h-4 w-4 cursor-pointer">
+                    <label for="recreate" class="">Create another after this one</label>
                 </div>
-                <x-util.submit-button text="Login" fullwidth />
+                <x-util.submit-button text="Create Post" fullwidth />
             </form>
 
         </section>

@@ -10,11 +10,11 @@ class NewsletterController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email' => 'required|email|min:5|unique:subscribers,email'
+            'subscriber' => 'required|email|min:5|unique:subscribers,email'
         ], [
-            'email.unique' => 'This email already exist as a subscriber'
+            'subscriber.unique' => 'This email already exist as a subscriber'
         ]);
-
+        $attributes['email'] = $attributes['subscriber'];
         Subscribers::create($attributes);
 
         return back()->with('success', 'You have successfully subscribed to our newsletter')->with('subscribed', '');

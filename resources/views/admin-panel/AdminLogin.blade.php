@@ -45,14 +45,8 @@
 
                 <hr class="my-3" />
                 <x-util.input label="Admin Email" name="email" type="email" required autofocus
-                    placeholder="Enter Admin Email Here..." x-on:input.change="emailHasError = false" />
-                @error('email')
-                    <p class="text-red-500" x-show="emailHasError">{{ $message }}</p>
-                @enderror
-                <x-util.input-password x-on:input.change="passwordHasError = false" />
-                @error('password')
-                    <p class="text-red-500" x-show="passwordHasError">{{ $message }}</p>
-                @enderror
+                    placeholder="Enter Admin Email Here..." />
+                <x-util.input-password />
                 <x-util.submit-button fullwidth text="Login As Admin" />
             </form>
         </div>

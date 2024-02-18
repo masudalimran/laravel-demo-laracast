@@ -1,9 +1,7 @@
 <div class="bg-secondary px-[20rem] flex justify-between items-center py-2 font-extralight text-sm sticky top-0">
     <div class="flex items-center gap-[1rem] text-sm font-light">
         @php
-            $routeName = request()
-                ->route()
-                ?->getname();
+            $routeName = request()->route()?->getname();
             $isLoginOrRegisterPage = false;
 
             if (($routeName === 'register-page') | ($routeName === 'login-page')) {
@@ -26,7 +24,7 @@
             </form>
         @else
             @if (!$isLoginOrRegisterPage)
-                <a href="/register" class="hover:underline cursor-pointer"> Login/Register</a>
+                <a href="/login" class="hover:underline cursor-pointer"> Login/Register</a>
             @endif
             <p class="hover:underline cursor-pointer">Terms & Conditions</p>
             <p class="hover:underline cursor-pointer">Contact</p>

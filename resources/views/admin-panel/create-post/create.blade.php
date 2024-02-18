@@ -1,10 +1,17 @@
-<x-layout>
-    <x-slot:pageTitle>Login</x-slot:pageTitle>
+<x-admin-layout>
+    <x-slot:pageTitle>Create Post</x-slot:pageTitle>
     <x-slot:mainContent>
+
         <section class="body-padding mx-auto mt-10 mb-44">
             <div class="flex justify-center items-center gap-2">
-                <x-util.button-v1 text="Registration" link="/register" />
-                <x-util.button-v1 text="Login" isActive />
+                @php
+                    $backUrl = url()->previous();
+                    if (url()->full() === url()->previous()) {
+                        $backUrl = '/admin/dashboard';
+                    }
+                @endphp
+                <x-util.button-v1 text="Go Back" link="{{ $backUrl }}" />
+                <x-util.button-v1 text="Create Post" isActive />
             </div>
             <form method="POST" action="/login" class="w-[500px] m-auto" x-data="{ emailHasError: true, passwordHasError: true }">
                 @csrf
@@ -27,4 +34,4 @@
 
         </section>
     </x-slot:mainContent>
-</x-layout>
+</x-admin-layout>

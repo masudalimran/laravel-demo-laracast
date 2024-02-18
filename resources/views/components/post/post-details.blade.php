@@ -5,7 +5,7 @@
     $mainPost = $post;
 @endphp
 <div class="body-padding px-4 pt-2 underline text-primary">
-    @if (Request::url() === url()->previous())
+    @if (url()->full() === url()->previous())
         <a href="/">Go Home</a>
     @else
         <a href="{{ url()->previous() }}">Back</a>

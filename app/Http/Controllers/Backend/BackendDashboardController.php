@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Post;
@@ -8,7 +10,7 @@ use App\Models\Subscribers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class BackendDashboardController extends Controller
 {
     public function index()
     {

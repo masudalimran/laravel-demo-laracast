@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -37,5 +38,14 @@ class LoginController extends Controller
         }
 
         return back()->withInput()->withErrors($errors);
+    }
+
+    public function destroy()
+    {
+        $username = auth()->user()->name;
+        auth()->logout();
+
+        return back()->with('error', "Hei $username, You logged out successfully!");
+
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Subscribers;
-use Illuminate\Http\Request;
 
-class NewsletterController extends Controller
+class SubscriberController extends Controller
 {
     public function store()
     {

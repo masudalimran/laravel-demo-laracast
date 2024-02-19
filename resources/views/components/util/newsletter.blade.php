@@ -13,7 +13,7 @@
         {{ $subCount > 0 ? "'s" : '' }}
     </p>
     <p class="my-4 font-extralight">Get the latest creative news from Atlas magazine</p>
-    <form class="flex items-center" method="post" action="/newsletter">
+    <form class="flex items-center" method="post" action="/subscribe">
         @csrf
         <div class="basis-3/5">
             <input

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
-class PostCommentsController extends Controller
+class PostCommentController extends Controller
 {
     public function store(Post $post)
     {
-        // Add a comment to the given post
         request()->validate([
             'comment' => 'required|min:10'
         ], [

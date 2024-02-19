@@ -1,46 +1,45 @@
 <?php
 
-use App\Http\Controllers\AdminPanelController;
-use App\Http\Controllers\CreatePostController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EditPostController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ManagePostController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\PostCommentsController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\SessionController;
+
+use App\Http\Controllers\Backend\BackendDashboardController;
+use App\Http\Controllers\Backend\BackendLoginController;
+use App\Http\Controllers\Backend\BackendPostController;
+use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Frontend\RegistrationController;
+use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\Frontend\PostCommentController;
+use App\Http\Controllers\Frontend\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [PostController::class, "index"])->name("home");
 
-Route::get('/posts/{post:id}', [PostController::class, "showSinglePost"])->where('post', '[0-9]+')->name("single-post");
-Route::post('/post/{post:id}/comment', [PostCommentsController::class, 'store'])->middleware('auth')->where('post', '[0-9]+')->name('store-comment');
+Route::get('/posts/{post:id}', [PostController::class, "show"])->where('post', '[0-9]+')->name("post-show");
+Route::post('/post/{post:id}/comment', [PostCommentController::class, 'store'])->middleware('auth')->where('post', '[0-9]+')->name('comment-store');
 
-Route::get("/categories/{category:name}", [PostController::class, "showPostByCategory"])->name("category");
+Route::get("/categories/{category:name}", [CategoryController::class, "index"])->name("post-show-by-category");
 
-Route::get("/register", [RegistrationController::class, "create"])->middleware('guest')->name('register-page');
-Route::post("/register", [RegistrationController::class, "store"])->middleware('guest')->name('register-user');
+Route::get("/register", [RegistrationController::class, "create"])->middleware('guest')->name('registration');
+Route::post("/register", [RegistrationController::class, "store"])->middleware('guest')->name('registration-store');
 
-Route::get("/login", [LoginController::class, "create"])->middleware('guest')->name('login-page');
-Route::post("/login", [LoginController::class, "store"])->middleware('guest')->name('login-user');
-Route::post("/logout", [SessionController::class, "destroy"])->middleware('auth');
+Route::get("/login", [LoginController::class, "create"])->middleware('guest')->name('login');
+Route::post("/login", [LoginController::class, "store"])->middleware('guest')->name('login-store');
+Route::post("/logout", [LoginController::class, "destroy"])->middleware('auth')->name('logout');
 
-Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
+Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');
 
 
 Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
-    Route::get('/', [AdminPanelController::class, 'index'])->name('admin-login');
-    Route::post('/', [AdminPanelController::class, 'store'])->name('admin-login');
-    Route::post('/logout', [AdminPanelController::class, 'destroy'])->name('admin-login');
+    Route::get('/', [BackendLoginController::class, 'index'])->name('backend-login');
+    Route::post('/', [BackendLoginController::class, 'store'])->name('backend-login-store');
+    Route::post('/logout', [BackendLoginController::class, 'destroy'])->name('backend-logout');
     Route::prefix('dashboard')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [BackendDashboardController::class, 'index'])->name('backend-dashboard');
         Route::prefix('post')->group(function () {
-            Route::get('/', [ManagePostController::class, 'index'])->name('post-page');
-            Route::get('/create', [CreatePostController::class, 'index'])->name('create-post-page');
-            Route::post('/create', [CreatePostController::class, 'store'])->name('create-post');
-            Route::get('/edit', [EditPostController::class, 'index'])->name('edit-post-page');
+            Route::get('/', [BackendPostController::class, 'index'])->name('backend-post');
+            Route::get('/create', [BackendPostController::class, 'create'])->name('backend-post-create');
+            Route::post('/create', [BackendPostController::class, 'store'])->name('backend-post-store');
+            Route::get('/edit', [BackendPostController::class, 'edit'])->name('backend-post-edit');
         });
     });
 });

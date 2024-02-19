@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
-class CreatePostController extends Controller
+class BackendPostController extends Controller
 {
     public function index()
+    {
+        $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(6);
+
+        $data = [
+            'posts' => $posts
+        ];
+        return view('admin-panel.manage-post.index', $data);
+    }
+
+    public function create()
     {
         return view('admin-panel.create-post.create', [
             'categories' => Category::orderBy('name')->get()
@@ -36,4 +46,14 @@ class CreatePostController extends Controller
         return redirect()->route('post-page', ['adminRoute' => $adminPath])->with('success', "Post " . $post->title . " has been created");
     }
 
+    public function edit()
+    {
+        if (request('id')) {
+            $currentPost = Post::with('category', 'author')->find(request('id'));
+            return view('admin-panel.edit-post.index', [
+                'currentPost' => $currentPost,
+                'categories' => Category::orderBy('name')->get()
+            ]);
+        }
+    }
 }

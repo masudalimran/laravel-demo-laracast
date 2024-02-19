@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Post;
-
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -26,7 +25,7 @@ class PostController extends Controller
         );
     }
 
-    public function showSinglePost(Post $post)
+    public function show(Post $post)
     {
         return view('post', [
             'post' => Post::with('category', 'author', 'comments')->find($post->id),
@@ -34,20 +33,5 @@ class PostController extends Controller
         ]);
     }
 
-    public function showPostByCategory(Category $category)
-    {
-        $posts = Post::with("category", "author");
-        $postsByCategory = $posts->where("category_id", $category->id)->orderBy('title')->get();
-        $directedPosts = $posts->filter($category->id);
-        if (request('search')) {
-            $directedPosts = $directedPosts->get();
-        } else
-            $directedPosts = $directedPosts->paginate(5);
-        return view('category', [
-            "directedPosts" => $directedPosts,
-            "postsByCategory" => $postsByCategory,
-            "currentCategory" => $category,
-        ]);
-    }
 
 }

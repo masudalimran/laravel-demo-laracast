@@ -16,8 +16,10 @@
                 </button>
                 <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
             </div>
-            <form method="POST" action="{{ url()->current() }}" class="w-[500px] m-auto">
+            <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto">
                 @csrf
+                <x-util.input-image :prevData="$currentPost->imgUrl" />
+                <input type="hidden" name="prevImg" value="{{ $currentPost->imgUrl }}" />
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
                     :prevData="$currentPost->title" autofocus />
                 <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required

@@ -9,8 +9,22 @@
     .body-padding {
         @apply mx-auto w-2/3;
     }
+    .basic-padding {
+        @apply px-4 py-2;
+    }
+    .basic-padding-sm {
+        @apply px-2 py-1;
+    }
     .icon-clickable {
         @apply cursor-pointer hover:text-primary transition;
+    }
+
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+
+    .absolute-all {
+        @apply absolute top-0 right-0 bottom-0 left-0;
     }
 }
 

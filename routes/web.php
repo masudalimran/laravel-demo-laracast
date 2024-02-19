@@ -40,6 +40,7 @@ Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
             Route::get('/create', [BackendPostController::class, 'create'])->name('backend-post-create');
             Route::post('/create', [BackendPostController::class, 'store'])->name('backend-post-store');
             Route::get('/edit', [BackendPostController::class, 'edit'])->name('backend-post-edit');
+            Route::post('/edit', [BackendPostController::class, 'update'])->name('backend-post-edit');
         });
     });
 });

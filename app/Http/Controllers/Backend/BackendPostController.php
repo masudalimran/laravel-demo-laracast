@@ -15,12 +15,12 @@ class BackendPostController extends Controller
         $data = [
             'posts' => $posts
         ];
-        return view('admin-panel.manage-post.index', $data);
+        return view('admin-panel.backend-post.index', $data);
     }
 
     public function create()
     {
-        return view('admin-panel.create-post.create', [
+        return view('admin-panel.backend-post.create', [
             'categories' => Category::orderBy('name')->get()
         ]);
     }
@@ -50,10 +50,26 @@ class BackendPostController extends Controller
     {
         if (request('id')) {
             $currentPost = Post::with('category', 'author')->find(request('id'));
-            return view('admin-panel.edit-post.index', [
+            return view('admin-panel.backend-post.edit', [
                 'currentPost' => $currentPost,
                 'categories' => Category::orderBy('name')->get()
             ]);
         }
+    }
+
+    public function update()
+    {
+        // dd(request()->all());
+        $attributes = request()->validate([
+            'img' => 'image',
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,except,id',
+            'body' => 'required|min:5|max:3000',
+            'published_at' => '',
+            'category_id' => 'required|exists:categories,id'
+
+        ]);
+        dd($attributes);
+        return back();
     }
 }

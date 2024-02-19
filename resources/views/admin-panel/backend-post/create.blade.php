@@ -11,13 +11,15 @@
                 @endphp
                 <button class="text-2xl text-red-300 hover:text-red-500 transition">
                     <a href="{{ $backUrl }}">
+
                         <x-feathericon-arrow-left-circle class="h-14 w-14" />
                     </a>
                 </button>
                 <x-util.button-v1 text="Create Post" isActive fullWidth />
             </div>
-            <form method="POST" action="{{ url()->current() }}" class="w-[500px] m-auto" x-data="{ titleHasError: true, excerptHasError: true, publishedAtHasError: true }">
+            <form method="POST" action="{{ url()->current() }}" class="w-[500px] m-auto" enctype="multipart/form-data">
                 @csrf
+                <x-util.input-image />
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
                     autofocus />
                 <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required />
@@ -26,7 +28,7 @@
                     type="date" />
                 <div class="my-4">
                     <label for="category_id" class="font-semibold w-full">Category</label>
-                    <select class="px-4 py-2 rounded-full w-full my-2" name="category_id" id="category_id">
+                    <select class="px-4 py-2 rounded-full w-full my-2 bg-secondary" name="category_id" id="category_id">
                         @foreach ($categories as $category)
                             <option value={{ $category->id }}
                                 {{ old('category_id') === $category->id ? 'selected' : '' }}>

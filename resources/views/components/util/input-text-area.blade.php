@@ -9,7 +9,7 @@
     </label>
     <textarea rows="{{ isset($maxChar) ? $maxChar / 200 : 15 }}" name="{{ $name ?? 'name' }}" id="{{ $name ?? '' }}"
         maxlength="{{ $maxChar ?? 3000 }}" x-model='content'
-        {{ $attributes->merge(['class' => 'px-4 py-2 w-full outline-none border-white focus:border-primary border-2 resize-none rounded-xl']) }}
+        {{ $attributes->merge(['class' => 'px-4 py-2 w-full outline-none border-white focus:border-primary focus:bg-secondary border-2 resize-none rounded-xl transition duration-500']) }}
         x-on:input.change="hasError = false">
     </textarea>
     <div class="flex justify-between items-center my-2 gap-4">

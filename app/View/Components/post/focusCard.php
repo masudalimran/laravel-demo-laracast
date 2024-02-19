@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\admin-panel\cards;
+namespace App\View\Components\post;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SimplePostCards extends Component
+class focusCard extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class SimplePostCards extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin-panel.cards.user-card');
+        return view('components.post.focus-card');
     }
 }

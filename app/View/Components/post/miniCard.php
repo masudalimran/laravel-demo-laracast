@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\admin-panel\header;
+namespace App\View\Components\post;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class menu-bar extends Component
+class miniCard extends Component
 {
     /**
      * Create a new component instance.
@@ -21,10 +21,6 @@ class menu-bar extends Component
      */
     public function render(): View|Closure|string
     {
-        $parameters = Route::current()?->parameters();
-        dd($parameters);
-        return view('components.admin-panel.header.menu-bar',[
-            'path' => '123123'
-        ]);
+        return view('components.post.mini-card');
     }
 }

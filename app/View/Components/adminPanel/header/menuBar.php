@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\admin-panel\cards;
+namespace App\View\Components\adminPanel\header;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SubscriberCard extends Component
+class menuBar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,10 @@ class SubscriberCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin-panel.cards.subscriber-card');
+        $parameters = Route::current()?->parameters();
+        dd($parameters);
+        return view('components.admin-panel.header.menu-bar', [
+            'path' => '123123'
+        ]);
     }
 }

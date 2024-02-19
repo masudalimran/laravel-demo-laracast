@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class overlay-card extends Component
+class traditionalCard extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class overlay-card extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.post.overlay-card');
+        return view('components.post.traditional-card');
     }
 }

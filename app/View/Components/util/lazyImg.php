@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\admin-panel\cards;
+namespace App\View\Components\util;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ManagePostCard extends Component
+class lazyImg extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class ManagePostCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin-panel.cards.manage-post-card');
+        return view('components.util.lazy-img');
     }
 }

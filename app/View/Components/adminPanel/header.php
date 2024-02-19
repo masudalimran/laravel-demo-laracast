@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\util;
+namespace App\View\Components\adminPanel;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class lazy-img extends Component
+class header extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class lazy-img extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.util.lazy-img');
+        return view('components.admin-panel.header');
     }
 }

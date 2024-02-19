@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\admin-panel\header;
+namespace App\View\Components\adminPanel\cards;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class top-bar extends Component
+class ManagePostCard extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class top-bar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin-panel.header.top-bar');
+        return view('components.admin-panel.cards.manage-post-card');
     }
 }

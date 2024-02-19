@@ -21,10 +21,6 @@ class menuBar extends Component
      */
     public function render(): View|Closure|string
     {
-        $parameters = Route::current()?->parameters();
-        dd($parameters);
-        return view('components.admin-panel.header.menu-bar', [
-            'path' => '123123'
-        ]);
+        return view('components.admin-panel.header.menu-bar');
     }
 }

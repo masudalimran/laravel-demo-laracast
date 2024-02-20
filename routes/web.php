@@ -5,17 +5,17 @@ use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\BackendLoginController;
 use App\Http\Controllers\Backend\BackendPostController;
 use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\RegistrationController;
 use App\Http\Controllers\Frontend\PostController;
-use App\Http\Controllers\Frontend\PostCommentController;
 use App\Http\Controllers\Frontend\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [PostController::class, "index"])->name("home");
 
 Route::get('/posts/{post:id}', [PostController::class, "show"])->where('post', '[0-9]+')->name("post-show");
-Route::post('/post/{post:id}/comment', [PostCommentController::class, 'store'])->middleware('auth')->where('post', '[0-9]+')->name('comment-store');
+Route::post('/post/{post:id}/comment', [CommentController::class, 'store'])->middleware('auth')->where('post', '[0-9]+')->name('comment-store');
 
 Route::get("/categories/{category:name}", [CategoryController::class, "index"])->name("post-show-by-category");
 

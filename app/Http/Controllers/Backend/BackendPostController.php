@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 
+// use App;
+
+
 class BackendPostController extends Controller
 {
     public function index()
@@ -59,17 +62,21 @@ class BackendPostController extends Controller
 
     public function update()
     {
-        // dd(request()->all());
-        $attributes = request()->validate([
-            'img' => 'image',
-            'title' => 'required|min:5|max:255',
-            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,except,id',
-            'body' => 'required|min:5|max:3000',
-            'published_at' => '',
-            'category_id' => 'required|exists:categories,id'
+        // dd(request()->all(), request()->file('img'));
+        // $imgUrl = request()->file('img')->store('img');
+        uploadToLocal('img', request()->file('img'));
+        return 'Done ';
 
-        ]);
-        dd($attributes);
-        return back();
+        // $attributes = request()->validate([
+        //     'img' => 'image',
+        //     'title' => 'required|min:5|max:255',
+        //     'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . request('id'),
+        //     'body' => 'required|min:5|max:3000',
+        //     'published_at' => '',
+        //     'category_id' => 'required|exists:categories,id'
+
+        // ]);
+
+        // return back();
     }
 }

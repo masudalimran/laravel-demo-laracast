@@ -16,7 +16,7 @@
                 </button>
                 <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
             </div>
-            <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto">
+            <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto" enctype="multipart/form-data">
                 @csrf
                 <x-util.input-image :prevData="$currentPost->imgUrl" />
                 <input type="hidden" name="prevImg" value="{{ $currentPost->imgUrl }}" />

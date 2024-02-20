@@ -26,7 +26,7 @@ class MustBeAdmin
                 abort(403);
             } else if ($reqFirstPath === $adminPath && $pathCount === 1) {
                 return redirect()
-                    ->route('dashboard', ['adminRoute' => $adminPath])->with('success', "Welcome Back, Mr. " . auth()->user()->name);
+                    ->route('backend-dashboard', ['adminRoute' => $adminPath])->with('success', "Welcome Back, Mr. " . auth()->user()->name);
             }
         } else if ($reqFirstPath === $adminPath && $pathCount > 1) {
             return redirect($adminPath);

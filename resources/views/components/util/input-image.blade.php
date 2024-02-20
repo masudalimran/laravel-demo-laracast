@@ -57,10 +57,10 @@
     </template>
 
     {{-- Input Hidden --}}
-    <input name="img" id="img" type='file'
+    <input name="img" id="img" type='file' accept="image/*"
         @change="
         uploadInfo.src = URL.createObjectURL(event.target.files[0]);
         uploadInfo.size = event.target.files[0].size;
         uploadInfo.name = event.target.files[0].name;"
-        accept="image/*" class="hidden" />
+        class="hidden" />
 </div>

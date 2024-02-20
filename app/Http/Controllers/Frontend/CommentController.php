@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Post;
 
-class PostCommentController extends Controller
+class CommentController extends Controller
 {
     public function store(Post $post)
     {

@@ -1,8 +1,33 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('uploadToLocal')) {
-    function uploadToLocal(string $path, $content)
+    function uploadToLocal(string $path, mixed $file)
     {
-        return Storage::disk('local')->put('local/' . $path, $content);
+        return Storage::disk('local')->putFileAs('local/' . $path, $file, generateFileName($file->getClientOriginalName()));
     }
 }
+
+if (!function_exists('uploadToPublic')) {
+    function uploadToPublic(string $path, $file)
+    {
+        return $file->storeAs($path, generateFileName($file->getClientOriginalName()));
+    }
+}
+
+
+if (!function_exists('generateFileName')) {
+    function generateFileName(string $originalName)
+    {
+        $fileNameArr = explode('.', $originalName);
+        $ext = array_pop($fileNameArr);
+        $fileName = array_shift($fileNameArr);
+        $dateSuffix = Carbon::now()->toDateTimeString();
+        $generatedFileName = str_replace(" ", '_', $fileName . '-' . $dateSuffix) . '.' . $ext;
+        return $generatedFileName;
+    }
+}
+
+
+

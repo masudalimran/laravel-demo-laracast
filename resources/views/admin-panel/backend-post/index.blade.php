@@ -3,7 +3,7 @@
     <x-slot:mainContent>
         <section class="body-padding my-6">
             @foreach ($posts as $post)
-                <x-admin-panel.cards.manage-post-card :post="$post" />
+                <x-admin-panel.card.manage-post-card :post="$post" />
             @endforeach
         </section>
 

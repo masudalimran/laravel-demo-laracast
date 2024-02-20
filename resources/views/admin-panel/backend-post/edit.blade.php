@@ -18,7 +18,10 @@
             </div>
             <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto" enctype="multipart/form-data">
                 @csrf
-                <x-util.input-image :prevData="$currentPost->imgUrl" />
+                @php
+                    $currentPostImgUrl = str_contains($currentPost->imgUrl, 'blog-img') ? asset('storage/' . $currentPost->imgUrl) : $currentPost->imgUrl;
+                @endphp
+                <x-util.input-image :prevData="$currentPostImgUrl" />
                 <input type="hidden" name="prevImg" value="{{ $currentPost->imgUrl }}" />
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
                     :prevData="$currentPost->title" autofocus />
@@ -52,6 +55,7 @@
                         @endforeach
                     </select>
                 </div>
+                {{ generateFileName('image-12123-asd.asdad._asdad.png') }}
                 <x-util.submit-button text="Update Post" fullwidth />
             </form>
 

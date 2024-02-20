@@ -30,6 +30,7 @@ class BackendPostController extends Controller
 
     public function store()
     {
+        // dd(request()->file('img'));
         $adminPath = 'admin';
         $attributes = request()->validate([
             'title' => 'required|min:5|max:255',
@@ -38,15 +39,22 @@ class BackendPostController extends Controller
             'published_at' => '',
             'category_id' => 'required|exists:categories,id'
         ]);
+
         $attributes['user_id'] = auth()->id();
-        $randomImageGenerate = "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
-        $attributes['imgUrl'] = $randomImageGenerate;
+
+        if (request()->hasFile('img')) {
+            $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
+        } else {
+            $randomImageGenerate = "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
+            $attributes['imgUrl'] = $randomImageGenerate;
+        }
+
         $post = Post::create($attributes);
 
         if (request('recreate') === 'on') {
             return back()->with('success', "Post " . $post->title . " has been created");
         }
-        return redirect()->route('post-page', ['adminRoute' => $adminPath])->with('success', "Post " . $post->title . " has been created");
+        return redirect()->route('backend-post', ['adminRoute' => $adminPath])->with('success', "Post " . $post->title . " has been created");
     }
 
     public function edit()
@@ -62,20 +70,23 @@ class BackendPostController extends Controller
 
     public function update()
     {
-        $imgUrl = request()->file('img')->store('img');
-        $path = uploadToLocal('file', request()->file('img'));
-        return 'Done ' . $path;
+        $attributes = request()->validate([
+            'img' => 'image',
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . request('id'),
+            'body' => 'required|min:5|max:3000',
+            'published_at' => '',
+            'category_id' => 'required|exists:categories,id'
 
-        // $attributes = request()->validate([
-        //     'img' => 'image',
-        //     'title' => 'required|min:5|max:255',
-        //     'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . request('id'),
-        //     'body' => 'required|min:5|max:3000',
-        //     'published_at' => '',
-        //     'category_id' => 'required|exists:categories,id'
+        ]);
+        if (request()->hasFile('img')) {
+            $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
+        }
+        // Post::where('id', '=', request('id'))->update($attributes);
 
-        // ]);
-
-        // return back();
+        // $post = Post::find(request('id'));
+        // dd($post);
+        // dd($attributes);
+        return back();
     }
 }

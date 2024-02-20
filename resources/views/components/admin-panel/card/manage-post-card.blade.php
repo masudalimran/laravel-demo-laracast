@@ -52,6 +52,7 @@
                 </a>
             </div>
         </div>
-        <img src="{{ $post->imgUrl }}" class="w-[200px] object-cover rounded opacity-50 group-hover:opacity-100" />
+        <img src="{{ str_contains($post->imgUrl, 'blog-img') ? asset('storage/' . $post->imgUrl) : $post->imgUrl }}"
+            alt="{{ $post->title }}" class="w-[200px] object-cover rounded opacity-50 group-hover:opacity-100" />
     </div>
 </article>

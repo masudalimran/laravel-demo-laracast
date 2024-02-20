@@ -62,10 +62,9 @@ class BackendPostController extends Controller
 
     public function update()
     {
-        // dd(request()->all(), request()->file('img'));
-        // $imgUrl = request()->file('img')->store('img');
-        uploadToLocal('img', request()->file('img'));
-        return 'Done ';
+        $imgUrl = request()->file('img')->store('img');
+        $path = uploadToLocal('file', request()->file('img'));
+        return 'Done ' . $path;
 
         // $attributes = request()->validate([
         //     'img' => 'image',

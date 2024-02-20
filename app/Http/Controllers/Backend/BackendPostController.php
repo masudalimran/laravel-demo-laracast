@@ -30,7 +30,6 @@ class BackendPostController extends Controller
 
     public function store()
     {
-        // dd(request()->file('img'));
         $adminPath = 'admin';
         $attributes = request()->validate([
             'title' => 'required|min:5|max:255',
@@ -57,23 +56,21 @@ class BackendPostController extends Controller
         return redirect()->route('backend-post', ['adminRoute' => $adminPath])->with('success', "Post " . $post->title . " has been created");
     }
 
-    public function edit()
+    public function edit(Post $post)
     {
-        if (request('id')) {
-            $currentPost = Post::with('category', 'author')->find(request('id'));
-            return view('admin-panel.backend-post.edit', [
-                'currentPost' => $currentPost,
-                'categories' => Category::orderBy('name')->get()
-            ]);
-        }
+        return view('admin-panel.backend-post.edit', [
+            'currentPost' => $post,
+            'categories' => Category::orderBy('name')->get()
+        ]);
     }
 
-    public function update()
+    public function update(Post $post)
     {
+        $adminPath = 'admin';
         $attributes = request()->validate([
             'img' => 'image',
             'title' => 'required|min:5|max:255',
-            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . request('id'),
+            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . $post->id,
             'body' => 'required|min:5|max:3000',
             'published_at' => '',
             'category_id' => 'required|exists:categories,id'
@@ -83,12 +80,8 @@ class BackendPostController extends Controller
             $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
         }
 
-        dd($attributes);
-        // Post::where('id', '=', request('id'))->update($attributes);
+        $post->update($attributes);
 
-        // $post = Post::find(request('id'));
-        // dd($post);
-        // dd($attributes);
-        return back();
+        return redirect()->route('backend-post', ['adminRoute' => $adminPath])->with('warning', "Post " . $post->title . " has been updated");
     }
 }

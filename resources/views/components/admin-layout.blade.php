@@ -22,14 +22,12 @@
     <main>
         {{ $mainContent }}
     </main>
-
-    <footer>
-        {{-- <x-footer /> --}}
-    </footer>
     @if (session()->has('success'))
         <x-util.success-toaster :text="session('success')" />
     @elseif (session()->has('error'))
         <x-util.error-toaster :text="session('error')" />
+    @elseif (session()->has('warning'))
+        <x-util.warning-toaster :text="session('warning')" />
     @endif
 
 </body>

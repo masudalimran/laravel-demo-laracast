@@ -1,5 +1,5 @@
 @php
-    $menus = ['post' => 'Post', 'category' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
+    $menus = ['posts' => 'Post', 'category' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
     function menuExist(string $menu)
     {
         $pathName = request()->route()->getname();

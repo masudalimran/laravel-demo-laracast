@@ -1,5 +1,5 @@
 @props(['prevData'])
-<div class="my-4" x-data="{ uploadInfo: { src: '{{ isset($prevData) ? $prevData : null }}' } }">
+<div class="my-4" x-data="{ uploadInfo: { src: '{{ isset($prevData) ? $prevData : null }}' }, hasError: true }">
 
     {{-- Upload Box --}}
     <template x-if="!uploadInfo.src">
@@ -62,5 +62,9 @@
         uploadInfo.src = URL.createObjectURL(event.target.files[0]);
         uploadInfo.size = event.target.files[0].size;
         uploadInfo.name = event.target.files[0].name;"
-        class="hidden" />
+        x-on:input.change="hasError = false" class="hidden" />
+
+    @error('img')
+        <p class="text-red-500" x-show="hasError">{{ $message }}</p>
+    @enderror
 </div>

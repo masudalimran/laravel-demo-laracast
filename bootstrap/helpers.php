@@ -25,7 +25,7 @@ if (!function_exists('generateFileName')) {
         $fileName = array_shift($fileNameArr);
         $dateSuffix = Carbon::now()->toDateTimeString();
         $invalidCharRegex = '/[\\\\?%*:|"<>\s&]/';
-        $generatedFileName = preg_replace($invalidCharRegex, '_', $fileName . '-' . $dateSuffix) . '.' . $ext;
+        $generatedFileName = strtolower(preg_replace($invalidCharRegex, '_', $fileName . '-' . $dateSuffix) . '.' . $ext);
         return $generatedFileName;
     }
 }

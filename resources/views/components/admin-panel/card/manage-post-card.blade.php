@@ -43,7 +43,7 @@
                     Delete
                 </div>
 
-                <a href="{{ url()->current() }}/edit?id={{ $post->id }}">
+                <a href="{{ url()->current() }}/{{ $post->id }}/edit">
                     <div
                         class="flex items-center gap-2 text-blue-400 hover:bg-blue-500 hover:text-white transition cursor-pointer text-xl border-2 rounded-full px-4 py-2 border-blue-400 hover:border-blue-500">
                         <x-feathericon-edit class="" />

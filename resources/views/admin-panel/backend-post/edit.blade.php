@@ -6,7 +6,7 @@
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
-                        $backUrl = '/admin/dashboard';
+                        $backUrl = '/admin/dashboard/post';
                     }
                 @endphp
                 <button class="text-2xl text-red-300 hover:text-red-500 transition">
@@ -16,8 +16,10 @@
                 </button>
                 <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
             </div>
-            <form method="POST" action="{{ url()->full() }}" class="w-[500px] m-auto" enctype="multipart/form-data">
+            <form method="POST" action="/admin/dashboard/posts/{{ $currentPost->id }}" class="w-[500px] m-auto"
+                enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 @php
                     $currentPostImgUrl = str_contains($currentPost->imgUrl, 'blog-img') ? asset('storage/' . $currentPost->imgUrl) : $currentPost->imgUrl;
                 @endphp

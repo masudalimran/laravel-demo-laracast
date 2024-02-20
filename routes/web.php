@@ -29,18 +29,18 @@ Route::post("/logout", [LoginController::class, "destroy"])->middleware('auth')-
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');
 
 
-Route::prefix('/{adminRoute}')->middleware('admin')->group(function () {
+Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/', [BackendLoginController::class, 'index'])->name('backend-login');
     Route::post('/', [BackendLoginController::class, 'store'])->name('backend-login-store');
     Route::post('/logout', [BackendLoginController::class, 'destroy'])->name('backend-logout');
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [BackendDashboardController::class, 'index'])->name('backend-dashboard');
-        Route::prefix('post')->group(function () {
+        Route::prefix('posts')->group(function () {
             Route::get('/', [BackendPostController::class, 'index'])->name('backend-post');
             Route::get('/create', [BackendPostController::class, 'create'])->name('backend-post-create');
             Route::post('/create', [BackendPostController::class, 'store'])->name('backend-post-store');
-            Route::get('/edit', [BackendPostController::class, 'edit'])->name('backend-post-edit');
-            Route::post('/edit', [BackendPostController::class, 'update'])->name('backend-post-edit');
+            Route::get('/{post:id}/edit/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
+            Route::patch('/{post:id}', [BackendPostController::class, 'update'])->name('backend-post-edit');
         });
     });
 });

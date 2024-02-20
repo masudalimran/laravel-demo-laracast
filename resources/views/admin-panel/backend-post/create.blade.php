@@ -6,7 +6,7 @@
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
-                        $backUrl = '/admin/dashboard';
+                        $backUrl = '/admin/dashboard/post';
                     }
                 @endphp
                 <button class="text-2xl text-red-300 hover:text-red-500 transition">

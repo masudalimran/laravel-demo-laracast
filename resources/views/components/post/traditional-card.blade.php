@@ -3,7 +3,7 @@
     <a href="/posts/{{ $post->id }}">
         @php
             $imageSerial = $post->id + 1;
-            $imgUrl = $post->imgUrl;
+            $imgUrl = str_contains($post->imgUrl, 'blog-img') ? asset('storage/' . $post->imgUrl) : $post->imgUrl;
         @endphp
         <x-util.lazy-img :imgUrl="$imgUrl" class="w-[300px] h-[200px]" />
     </a>

@@ -55,7 +55,6 @@
                         @endforeach
                     </select>
                 </div>
-                {{ generateFileName('image-12123-asd.asdad._asdad.png') }}
                 <x-util.submit-button text="Update Post" fullwidth />
             </form>
 

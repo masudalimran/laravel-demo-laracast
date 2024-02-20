@@ -3,7 +3,7 @@
     <a href="/posts/{{ $post->id }}">
         <div {{ $attributes->merge(['class' => 'relative h-[350px] overflow-hidden group bg-contain bg-no-repeat bg-center']) }}
             style="background-image:url('/img/loading.gif')">
-            <img src="{{ $post->imgUrl }}"
+            <img src="{{ str_contains($post->imgUrl, 'blog-img') ? asset('storage/' . $post->imgUrl) : $post->imgUrl }}"
                 class="absolute top-0 bottom-0 left-0 right-0 object-cover w-full h-full shadow rounded-lg group-hover:scale-[110%] transition duration-300" />
             <div
                 class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black opacity-80 text-white flex flex-col justify-end items-center gap-1 pb-6 rounded-lg group-hover:pb-12 tranistion duration-300">

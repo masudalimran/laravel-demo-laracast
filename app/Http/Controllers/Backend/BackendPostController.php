@@ -82,6 +82,8 @@ class BackendPostController extends Controller
         if (request()->hasFile('img')) {
             $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
         }
+
+        dd($attributes);
         // Post::where('id', '=', request('id'))->update($attributes);
 
         // $post = Post::find(request('id'));

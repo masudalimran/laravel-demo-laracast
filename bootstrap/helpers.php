@@ -24,7 +24,8 @@ if (!function_exists('generateFileName')) {
         $ext = array_pop($fileNameArr);
         $fileName = array_shift($fileNameArr);
         $dateSuffix = Carbon::now()->toDateTimeString();
-        $generatedFileName = str_replace(" ", '_', $fileName . '-' . $dateSuffix) . '.' . $ext;
+        $invalidCharRegex = '/[\\\\?%*:|"<>\s&]/';
+        $generatedFileName = preg_replace($invalidCharRegex, '_', $fileName . '-' . $dateSuffix) . '.' . $ext;
         return $generatedFileName;
     }
 }

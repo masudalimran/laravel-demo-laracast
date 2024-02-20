@@ -27,7 +27,7 @@
                 @foreach ($featured as $post)
                     @php
                         $imageSerial = $post->id + 1;
-                        $imgUrl = $post->imgUrl;
+                        $imgUrl = str_contains($post->imgUrl, 'blog-img') ? asset('storage/' . $post->imgUrl) : $post->imgUrl;
                     @endphp
                     <x-util.lazy-img :imgUrl="$imgUrl" class="h-[300px] w-full" />
                 @endforeach

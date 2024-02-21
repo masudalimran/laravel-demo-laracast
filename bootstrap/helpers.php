@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('uploadToLocal')) {
     function uploadToLocal(string $path, mixed $file)

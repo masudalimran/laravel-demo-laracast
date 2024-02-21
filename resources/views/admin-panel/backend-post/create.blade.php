@@ -24,8 +24,8 @@
                     autofocus />
                 <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required />
                 <x-util.input-text-area label="Body of post" name="body" required />
-                <x-util.input label="Publication Date" name="published_at" placeholder="Published At..."
-                    type="date" />
+                <x-util.input label="Publication Date" name="published_at" placeholder="Published At..." type="date"
+                    :prevData="(new DateTime())->format('Y-m-d')" />
                 <div class="my-4">
                     <label for="category_id" class="font-semibold w-full">Category</label>
                     <select class="px-4 py-2 rounded-full w-full my-2 bg-secondary" name="category_id" id="category_id">

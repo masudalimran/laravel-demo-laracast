@@ -39,8 +39,9 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
             Route::get('/', [BackendPostController::class, 'index'])->name('backend-post');
             Route::get('/create', [BackendPostController::class, 'create'])->name('backend-post-create');
             Route::post('/create', [BackendPostController::class, 'store'])->name('backend-post-store');
-            Route::get('/{post:id}/edit/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
+            Route::get('/edit/{post:id}/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
             Route::patch('/{post:id}', [BackendPostController::class, 'update'])->name('backend-post-edit');
+            Route::delete('/{post:id}', [BackendPostController::class, 'destroy'])->name('backend-post-edit');
         });
     });
 });

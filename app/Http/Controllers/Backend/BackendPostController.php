@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 
-// use App;
-
-
 class BackendPostController extends Controller
 {
     public function index()
@@ -30,12 +27,11 @@ class BackendPostController extends Controller
 
     public function store()
     {
-        $adminPath = 'admin';
         $attributes = request()->validate([
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|min:5|max:255|unique:posts,excerpt',
             'body' => 'required|min:5|max:3000',
-            'published_at' => '',
+            'published_at' => 'date',
             'category_id' => 'required|exists:categories,id'
         ]);
 
@@ -53,7 +49,7 @@ class BackendPostController extends Controller
         if (request('recreate') === 'on') {
             return back()->with('success', "Post " . $post->title . " has been created");
         }
-        return redirect()->route('backend-post', ['adminRoute' => $adminPath])->with('success', "Post " . $post->title . " has been created");
+        return redirect()->route('backend-post')->with('success', "Post " . $post->title . " has been created");
     }
 
     public function edit(Post $post)
@@ -66,13 +62,12 @@ class BackendPostController extends Controller
 
     public function update(Post $post)
     {
-        $adminPath = 'admin';
         $attributes = request()->validate([
             'img' => 'image',
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . $post->id,
             'body' => 'required|min:5|max:3000',
-            'published_at' => '',
+            'published_at' => 'date',
             'category_id' => 'required|exists:categories,id'
 
         ]);
@@ -82,6 +77,11 @@ class BackendPostController extends Controller
 
         $post->update($attributes);
 
-        return redirect()->route('backend-post', ['adminRoute' => $adminPath])->with('warning', "Post " . $post->title . " has been updated");
+        return redirect()->route('backend-post')->with('warning', "Post " . $post->title . " has been updated");
+    }
+
+    public function destroy(Post $post)
+    {
+        dd($post);
     }
 }

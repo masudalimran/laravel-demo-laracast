@@ -31,5 +31,26 @@ if (!function_exists('generateFileName')) {
     }
 }
 
+if (!function_exists('handlePostImgPath')) {
+    function handlePostImgPath(string $imgPath)
+    {
+        if (str_contains($imgPath, 'blog-img')) {
+            return asset('storage/' . $imgPath);
+        } else {
+            return $imgPath;
+        }
+    }
+}
+
+if (!function_exists('customUnlinkFile')) {
+    function customUnlinkFile($filePath)
+    {
+        $relativePath = 'storage/' . $filePath;
+        if (file_exists($relativePath)) {
+            unlink($relativePath);
+        }
+    }
+}
+
 
 

@@ -29,7 +29,6 @@
     @elseif (session()->has('warning'))
         <x-util.warning-toaster :text="session('warning')" />
     @endif
-
 </body>
 
 </html>

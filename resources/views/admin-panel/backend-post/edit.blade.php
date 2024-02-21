@@ -21,7 +21,7 @@
                 @csrf
                 @method('PATCH')
                 @php
-                    $currentPostImgUrl = str_contains($currentPost->imgUrl, 'blog-img') ? asset('storage/' . $currentPost->imgUrl) : $currentPost->imgUrl;
+                    $currentPostImgUrl = handlePostImgPath($currentPost->imgUrl);
                 @endphp
                 <x-util.input-image :prevData="$currentPostImgUrl" />
                 <input type="hidden" name="prevImg" value="{{ $currentPost->imgUrl }}" />

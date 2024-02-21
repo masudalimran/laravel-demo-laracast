@@ -82,6 +82,10 @@ class BackendPostController extends Controller
 
     public function destroy(Post $post)
     {
-        dd($post);
+        $isDeleted = $post->delete();
+        if ($isDeleted) {
+            customUnlinkFile($post->imgUrl);
+        }
+        return redirect()->route('backend-post')->with('error', "Post " . $post->title . " has been deleted");
     }
 }

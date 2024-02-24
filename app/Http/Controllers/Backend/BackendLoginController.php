@@ -11,7 +11,7 @@ class BackendLoginController extends Controller
 {
     public function index()
     {
-        return view('admin-panel.adminlogin');
+        return view('admin-panel.admin-login');
     }
 
     public function store()

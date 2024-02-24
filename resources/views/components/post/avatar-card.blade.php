@@ -3,7 +3,7 @@
 @endphp
 @props(['post', 'isBackend'])
 <article
-    class="basis-1/3 py-4 flex gap-2 justify-start items-start hover:shadow-lg rounded-lg p-2 transition duration-300">
+    class="basis-1/3 py-4 flex gap-2 justify-start items-start border-b-2 border-transparent hover:border-black p-2 transition duration-300">
     <a href="/posts/{{ $post->id }}">
         @php
             $imageSerial = $post->id + 1;

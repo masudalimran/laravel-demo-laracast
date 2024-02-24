@@ -40,6 +40,6 @@ class BackendDashboardController extends Controller
             'someSubscribers' => $someSubscribers
         ];
 
-        return view('admin-panel.Dashboard', $data);
+        return view('admin-panel.dashboard', $data);
     }
 }

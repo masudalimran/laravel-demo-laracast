@@ -1,8 +1,5 @@
 @props(['prevData' => null])
 <div class="my-4" x-data="{ uploadInfo: { src: '{{ $prevData }}' }, hasError: true }">
-    <p class="basic padding bg-primary text-white">
-        ad asd asd asd a da dsas d{{ old('img') }}
-    </p>
 
     {{-- Upload Box --}}
     <template x-if="!uploadInfo.src">

@@ -18,17 +18,17 @@ class MustBeAdmin
         $reqFirstPath = request()->segment(1);
         $pathCount = count(request()->segments());
 
-        if ($reqFirstPath !== 'admin') {
+        if ($reqFirstPath !== getAdminUrl()) {
             abort(404);
         } else if (auth()->user()) {
             if (auth()->user()?->isAdmin !== 1) {
                 abort(403);
-            } else if ($reqFirstPath === 'admin' && $pathCount === 1) {
+            } else if ($reqFirstPath === getAdminUrl() && $pathCount === 1) {
                 return redirect()
                     ->route('backend-dashboard')->with('success', "Welcome Back, Mr. " . auth()->user()->name);
             }
-        } else if ($reqFirstPath === 'admin' && $pathCount > 1) {
-            return redirect('admin');
+        } else if ($reqFirstPath === getAdminUrl() && $pathCount > 1) {
+            return redirect(getAdminUrl());
         }
         return $next($request);
     }

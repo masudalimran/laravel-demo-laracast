@@ -6,7 +6,7 @@
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
-                        $backUrl = '/admin/dashboard/post';
+                        $backUrl = '/' . getAdminUrl() . '/dashboard/post';
                     }
                 @endphp
                 <button class="text-2xl text-red-300 hover:text-red-500 transition">
@@ -16,8 +16,8 @@
                 </button>
                 <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
             </div>
-            <form method="POST" action="/admin/dashboard/posts/{{ $currentPost->id }}" class="w-[500px] m-auto"
-                enctype="multipart/form-data">
+            <form method="POST" action="/{{ getAdminUrl() }}/dashboard/posts/{{ $currentPost->id }}"
+                class="w-[500px] m-auto" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 @php

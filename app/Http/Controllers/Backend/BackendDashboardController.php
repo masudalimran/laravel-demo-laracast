@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\AdminUrl;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Subscribers;
@@ -41,5 +42,18 @@ class BackendDashboardController extends Controller
         ];
 
         return view('admin-panel.dashboard', $data);
+    }
+
+    public function update(AdminUrl $adminUrl)
+    {
+        $attributes = request()->validate([
+            'url' => 'required|min:5|unique:admin_urls,url'
+        ], [
+            'url.unique' => '\'' . request('url') . '\'' . ' already set as :attribute'
+        ]);
+
+        $adminUrl->update($attributes);
+        $newAdminUrl = '/' . $adminUrl->url . '/dashboard';
+        return redirect($newAdminUrl)->with('warning', "Admin Url Changed to '" . $adminUrl->url . "'");
     }
 }

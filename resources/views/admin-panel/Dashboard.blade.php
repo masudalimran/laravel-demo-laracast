@@ -2,6 +2,15 @@
 <x-admin-layout>
     <x-slot:pageTitle>Dashboard</x-slot:pageTitle>
     <x-slot:mainContent>
+        <div class="w-[80%] m-auto bg-secondary ">
+            <x-util.button-v1 text="Admin Settings" fullWidth noRound />
+            <form class="basic-padding mx-auto w-fit" action="{{ url()->current() }}/1" method="POST">
+                @csrf
+                @method('PATCH')
+                <x-util.input name="url" label="Admin Url" :prevData="getAdminUrl()" />
+                <x-util.submit-button text="Update Admin Url" fullwidth />
+            </form>
+        </div>
         <div class="flex justify-center gap-6 mt-6 [&>section]:flex-1 w-[80%] m-auto">
 
             <section>
@@ -40,5 +49,6 @@
                 </div>
             </section>
         </div>
+
     </x-slot:mainContent>
 </x-admin-layout>

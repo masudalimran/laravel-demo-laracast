@@ -12,7 +12,7 @@ setTimeout(() => {
     positionClass = 'translate-y-32 opacity-0';
 }, timeout);" class="fixed bottom-10 right-10 left-10 flex justify-end">
     <p
-        x-bind:class="`bg-orange-500 ${positionClass} px-4 py-2 z-10 text-white rounded flex gap-2 items-center capitalize transition delay-100 duration-500`">
+        x-bind:class="`bg-orange-500 ${positionClass} px-4 py-2 z-10 text-white rounded flex gap-2 items-center transition delay-100 duration-500`">
         <x-feathericon-check-circle />
         {{ $text }}
     </p>

@@ -10,7 +10,7 @@ class BackendPostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(6);
+        $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(15);
 
         $data = [
             'posts' => $posts
@@ -28,6 +28,7 @@ class BackendPostController extends Controller
     public function store()
     {
         $attributes = request()->validate([
+            'img' => 'image',
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|min:5|max:255|unique:posts,excerpt',
             'body' => 'required|min:5|max:3000',

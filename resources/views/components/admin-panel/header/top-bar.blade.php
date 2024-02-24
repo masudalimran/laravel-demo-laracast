@@ -7,7 +7,7 @@
                 </span>
             </p>
             <a href="/" class="hover:underline">Frontend</a>
-            <form method="POST" action="/admin/logout">
+            <form method="POST" action="/{{ getAdminUrl() }}/logout">
                 @csrf
                 <button type="submit" class="hover:underline cursor-pointer">Logout</button>
             </form>

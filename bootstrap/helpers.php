@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BackendAdminController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,6 +50,13 @@ if (!function_exists('customUnlinkFile')) {
         if (file_exists($relativePath)) {
             unlink($relativePath);
         }
+    }
+}
+
+if (!function_exists('getAdminUrl')) {
+    function getAdminUrl(): string
+    {
+        return (new BackendAdminController())->index();
     }
 }
 

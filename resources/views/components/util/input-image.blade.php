@@ -1,5 +1,5 @@
-@props(['prevData'])
-<div class="my-4" x-data="{ uploadInfo: { src: '{{ isset($prevData) ? $prevData : null }}' }, hasError: true }">
+@props(['prevData' => null])
+<div class="my-4" x-data="{ uploadInfo: { src: '{{ $prevData }}' }, hasError: true }">
 
     {{-- Upload Box --}}
     <template x-if="!uploadInfo.src">

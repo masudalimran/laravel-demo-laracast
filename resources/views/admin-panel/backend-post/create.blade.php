@@ -40,7 +40,7 @@
                 <div class="my-4 flex gap-2 items-center">
                     <input type="checkbox" name="recreate" id="recreate" class="h-4 w-4 cursor-pointer">
                     <label for="recreate" class="">
-                        Create another after this one
+                        Continue Create Post
                     </label>
                 </div>
                 <x-util.submit-button text="Create Post" fullwidth />

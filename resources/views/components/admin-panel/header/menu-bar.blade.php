@@ -1,11 +1,8 @@
 @php
-    $menus = ['post' => 'Post', 'category' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
-    // dd(request()->route()->getname());
+    $menus = ['posts' => 'Post', 'category' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
     function menuExist(string $menu)
     {
-        $pathName = request()->route()->getname();
-        // echo $pathName;
-        if (str_contains($pathName, $menu)) {
+        if (in_array($menu, request()->segments())) {
             return true;
         }
         return false;

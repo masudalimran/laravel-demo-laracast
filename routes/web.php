@@ -1,7 +1,6 @@
 <?php
 
 
-use App\Http\Controllers\Backend\BackendAdminController;
 use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\BackendLoginController;
 use App\Http\Controllers\Backend\BackendPostController;
@@ -36,12 +35,12 @@ Route::prefix('/' . getAdminUrl())->middleware('admin')->group(function () {
     Route::post('/logout', [BackendLoginController::class, 'destroy'])->name('backend-logout');
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [BackendDashboardController::class, 'index'])->name('backend-dashboard');
-        Route::patch('/{admin_url:id}', [BackendDashboardController::class, 'update'])->name('backend-dashboard-update');
+        Route::patch('/admin-url/{admin_url:id}', [BackendDashboardController::class, 'update'])->name('backend-dashboard-update');
         Route::prefix('posts')->group(function () {
             Route::get('/', [BackendPostController::class, 'index'])->name('backend-post');
             Route::get('/create', [BackendPostController::class, 'create'])->name('backend-post-create');
-            Route::post('/create', [BackendPostController::class, 'store'])->name('backend-post-store');
-            Route::get('/edit/{post:id}/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
+            Route::post('/', [BackendPostController::class, 'store'])->name('backend-post-store');
+            Route::get('/{post:id}/edit/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
             Route::patch('/{post:id}', [BackendPostController::class, 'update'])->name('backend-post-update');
             Route::delete('/{post:id}', [BackendPostController::class, 'destroy'])->name('backend-post-destroy');
         });

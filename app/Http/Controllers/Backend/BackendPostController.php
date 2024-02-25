@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 
 class BackendPostController extends Controller
 {
     public function index()
     {
+
+        // dd(Gate::allows('admin'));
         $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(15);
 
         $data = [

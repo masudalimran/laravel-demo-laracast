@@ -4,7 +4,7 @@
     <x-slot:mainContent>
         <div class="w-[80%] m-auto bg-secondary ">
             <x-util.button-v1 text="Admin Settings" fullWidth noRound />
-            <form class="basic-padding mx-auto w-fit" action="{{ url()->current() }}/1" method="POST">
+            <form class="basic-padding mx-auto w-fit" action="{{ url()->current() }}/admin-url/1" method="POST">
                 @csrf
                 @method('PATCH')
                 <x-util.input name="url" label="Admin Url" :prevData="getAdminUrl()" />

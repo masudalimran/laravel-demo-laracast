@@ -17,7 +17,8 @@
                 </button>
                 <x-util.button-v1 text="Create Post" isActive fullWidth />
             </div>
-            <form method="POST" action="{{ url()->current() }}" class="w-[500px] m-auto" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('backend-post-store') }}" class="w-[500px] m-auto"
+                enctype="multipart/form-data">
                 @csrf
                 <x-util.input-image />
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required

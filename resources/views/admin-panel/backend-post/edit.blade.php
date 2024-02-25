@@ -6,7 +6,7 @@
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
-                        $backUrl = '/' . getAdminUrl() . '/dashboard/post';
+                        $backUrl = '/' . getAdminUrl() . '/dashboard/posts';
                     }
                 @endphp
                 <button class="text-2xl text-red-300 hover:text-red-500 transition">
@@ -20,11 +20,7 @@
                 class="w-[500px] m-auto" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                @php
-                    $currentPostImgUrl = handlePostImgPath($currentPost->imgUrl);
-                @endphp
-                <x-util.input-image :prevData="$currentPostImgUrl" />
-                <input type="hidden" name="prevImg" value="{{ $currentPost->imgUrl }}" />
+                <x-util.input-image :prevData="$currentPost->imgUrl" />
                 <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
                     :prevData="$currentPost->title" autofocus />
                 <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required

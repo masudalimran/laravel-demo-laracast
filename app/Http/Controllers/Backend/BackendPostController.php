@@ -27,22 +27,14 @@ class BackendPostController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
-            'img' => 'image',
-            'title' => 'required|min:5|max:255',
-            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt',
-            'body' => 'required|min:5|max:3000',
-            'published_at' => 'date',
-            'category_id' => 'required|exists:categories,id'
-        ]);
+        $attributes = $this->validatePost();
 
         $attributes['user_id'] = auth()->id();
 
         if (request()->hasFile('img')) {
             $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
         } else {
-            $randomImageGenerate = "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
-            $attributes['imgUrl'] = $randomImageGenerate;
+            $attributes['imgUrl'] = randomPostImage();
         }
 
         $post = Post::create($attributes);
@@ -63,17 +55,15 @@ class BackendPostController extends Controller
 
     public function update(Post $post)
     {
-        $attributes = request()->validate([
-            'img' => 'image',
-            'title' => 'required|min:5|max:255',
-            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . $post->id,
-            'body' => 'required|min:5|max:3000',
-            'published_at' => 'date',
-            'category_id' => 'required|exists:categories,id'
+        $attributes = $this->validatePost($post);
 
-        ]);
         if (request()->hasFile('img')) {
             $attributes['imgUrl'] = uploadToPublic('blog-img', request()->file('img'));
+        } else if (request('prevImg')) {
+            $attributes['imgUrl'] = request('prevImg');
+        } else {
+            $attributes['imgUrl'] = randomPostImage();
+            customUnlinkFile($post->imgUrl);
         }
 
         $post->update($attributes);
@@ -88,5 +78,19 @@ class BackendPostController extends Controller
             customUnlinkFile($post->imgUrl);
         }
         return redirect()->route('backend-post')->with('error', "Post " . $post->title . " has been deleted");
+    }
+
+    private function validatePost(?Post $post = null)
+    {
+        $post ??= new Post();
+        return request()->validate([
+            'img' => 'image',
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|min:5|max:255|unique:posts,excerpt,' . $post->id,
+            'body' => 'required|min:5|max:3000',
+            'published_at' => 'date',
+            'category_id' => 'required|exists:categories,id'
+
+        ]);
     }
 }

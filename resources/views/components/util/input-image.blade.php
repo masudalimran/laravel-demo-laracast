@@ -1,5 +1,5 @@
 @props(['prevData' => null])
-<div class="my-4" x-data="{ uploadInfo: { src: '{{ $prevData }}' }, hasError: true }">
+<div class="my-4" x-data="{ uploadInfo: { src: '{{ handlePostImgPath($prevData) }}' }, hasError: true }">
 
     {{-- Upload Box --}}
     <template x-if="!uploadInfo.src">
@@ -26,6 +26,7 @@
     {{-- Preview --}}
     <template x-if="uploadInfo.src">
         <div>
+            <input type="hidden" name="prevImg" value="{{ $prevData }}" />
             <div class="relative w-full h-[300px] flex-center rounded-xl ">
                 <div
                     class="absolute-all z-10 backdrop:blur-lg bg-black/0 hover:bg-black/40

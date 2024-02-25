@@ -33,12 +33,16 @@ if (!function_exists('generateFileName')) {
 }
 
 if (!function_exists('handlePostImgPath')) {
-    function handlePostImgPath(string $imgPath)
+    function handlePostImgPath(?string $imgPath)
     {
-        if (str_contains($imgPath, 'blog-img')) {
-            return asset('storage/' . $imgPath);
+        if ($imgPath) {
+            if (str_contains($imgPath, 'blog-img')) {
+                return asset('storage/' . $imgPath);
+            } else {
+                return $imgPath;
+            }
         } else {
-            return $imgPath;
+            return null;
         }
     }
 }
@@ -57,6 +61,13 @@ if (!function_exists('getAdminUrl')) {
     function getAdminUrl(): string
     {
         return (new BackendAdminController())->index();
+    }
+}
+
+if (!function_exists('randomPostImage')) {
+    function randomPostImage(): string
+    {
+        return "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
     }
 }
 

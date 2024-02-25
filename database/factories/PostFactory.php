@@ -18,13 +18,12 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $randomImageGenerate = "/img/blogs/blog-" . mt_rand(1, 51) . ".jpg";
         return [
             'title' => fake()->text(30),
             "excerpt" => fake()->text(60),
             "body" => fake()->text(300),
             "published_at" => now(),
-            "imgUrl" => $randomImageGenerate,
+            "imgUrl" => randomPostImage(),
             "category_id" => Category::factory(),
             "user_id" => User::factory()
         ];

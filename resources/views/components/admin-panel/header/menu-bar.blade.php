@@ -1,5 +1,5 @@
 @php
-    $menus = ['posts' => 'Post', 'category' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
+    $menus = ['posts' => 'Post', 'categories' => 'Category', 'user' => 'User', 'subscriber' => 'Subscriber'];
     function menuExist(string $menu)
     {
         if (in_array($menu, request()->segments())) {

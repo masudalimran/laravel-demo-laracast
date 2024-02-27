@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Backend\BackendCategoryController;
 use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\BackendLoginController;
 use App\Http\Controllers\Backend\BackendPostController;
@@ -43,6 +44,9 @@ Route::prefix('/' . getAdminUrl())->middleware('admin')->group(function () {
             Route::get('/{post:id}/edit/', [BackendPostController::class, 'edit'])->name('backend-post-edit');
             Route::patch('/{post:id}', [BackendPostController::class, 'update'])->name('backend-post-update');
             Route::delete('/{post:id}', [BackendPostController::class, 'destroy'])->name('backend-post-destroy');
+        });
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [BackendCategoryController::class, 'index'])->name('backend-category');
         });
     });
 });

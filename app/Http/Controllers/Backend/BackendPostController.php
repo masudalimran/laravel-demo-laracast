@@ -11,8 +11,6 @@ class BackendPostController extends Controller
 {
     public function index()
     {
-
-        // dd(Gate::allows('admin'));
         $posts = Post::with('category', 'author')->orderByDesc('id')->paginate(15);
 
         $data = [

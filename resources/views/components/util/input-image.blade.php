@@ -1,21 +1,31 @@
 @props(['prevData' => null])
-<div class="my-4" x-data="{ uploadInfo: { src: '{{ handlePostImgPath($prevData) }}' }, hasError: true }">
+<div class="my-4" x-data="{
+    uploadInfo: {
+        src: '{{ handlePostImgPath($prevData) }}'
+    },
+    hasError: true,
+    handlePreview() {
+        this.uploadInfo.src = URL.createObjectURL($refs.img.files[0]);
+        this.uploadInfo.size = $refs.img.files[0].size;
+        this.uploadInfo.name = $refs.img.files[0].name;
+    },
+
+}">
 
     {{-- Upload Box --}}
     <template x-if="!uploadInfo.src">
         <label for="img">
             <div
-                class="w-full h-[300px] bg-secondary rounded-xl flex-center cursor-pointer group/imgUpload hover:shadow-md shadow-primary/35  overflow-hidden">
-                <div class="flex-center flex-col gap-2 ">
+                class="flex-center group/imgUpload shadow-primary/35 h-[300px] w-full cursor-pointer overflow-hidden rounded-xl bg-secondary hover:shadow-md">
+                <div class="flex-center flex-col gap-2">
                     <x-feathericon-image
-                        class="h-24 w-24 text-primary
-                        group-hover/imgUpload:scale-150 group-hover/imgUpload:translate-y-12 group-hover/imgUpload:opacity-70 transition duration-200" />
+                        class="h-24 w-24 text-primary transition duration-200 group-hover/imgUpload:translate-y-12 group-hover/imgUpload:scale-150 group-hover/imgUpload:opacity-70"
+                    />
                     <p
-                        class="bg-primary text-white basic-padding rounded-full
-                        group-hover/imgUpload:translate-x-[100vh] transition-all duration-300">
+                        class="basic-padding rounded-full bg-primary text-white transition-all duration-300 group-hover/imgUpload:translate-x-[100vh]">
                         Upload Blog Image
                     </p>
-                    <p class="group-hover/imgUpload:-translate-x-[100vh] transition-all duration-300">
+                    <p class="transition-all duration-300 group-hover/imgUpload:-translate-x-[100vh]">
                         Recommended: 400x300
                     </p>
                 </div>
@@ -26,32 +36,31 @@
     {{-- Preview --}}
     <template x-if="uploadInfo.src">
         <div>
-            <input type="hidden" name="prevImg" value="{{ $prevData }}" />
-            <div class="relative w-full h-[300px] flex-center rounded-xl ">
+            <input
+                name="prevImg"
+                type="hidden"
+                value="{{ $prevData }}"
+            />
+            <div class="flex-center relative h-[300px] w-full rounded-xl">
                 <div
-                    class="absolute-all z-10 backdrop:blur-lg bg-black/0 hover:bg-black/40
-                flex justify-end items-start transition duration-150 group/removeImg rounded-xl">
+                    class="absolute-all group/removeImg z-10 flex items-start justify-end rounded-xl bg-black/0 transition duration-150 backdrop:blur-lg hover:bg-black/40">
                     <x-feathericon-x-circle
-                        class="h-12 w-12 text-white invisible group-hover/removeImg:visible mr-4 mt-4
-                    cursor-pointer hover:scale-110 hover:text-red-500 transition"
-                        title="Remove Image" @click="uploadInfo = {}" />
+                        class="invisible mr-4 mt-4 h-12 w-12 cursor-pointer text-white transition hover:scale-110 hover:text-red-500 group-hover/removeImg:visible"
+                        title="Remove Image"
+                        @click="uploadInfo = {}"
+                    />
                 </div>
-                <img :src="uploadInfo.src" class="h-[300px] w-full object-cover rounded-xl" />
+                <img class="h-[300px] w-full rounded-xl object-cover" :src="uploadInfo.src" />
             </div>
             <div class="my-4">
                 <template x-if="uploadInfo.name">
                     <p>Filename:
-                        <span x-text="uploadInfo.name" class="my-2 text-sm font-light italic" />
+                        <span class="my-2 text-sm font-light italic" x-text="uploadInfo.name" />
                     </p>
                 </template>
                 <template x-if="uploadInfo.size">
                     <p>Size:
-                        <span
-                            x-text="
-                        (uploadInfo.size/1000000) > 1
-                        ? (uploadInfo.size/1000000).toFixed(2)+' mb'
-                        : (uploadInfo.size/1000).toFixed(2)+' kb'"
-                            class="my-2 text-sm font-light italic" />
+                        <span class="my-2 text-sm font-light italic" x-text="calculateFileSize(uploadInfo.size)" />
                     </p>
                 </template>
             </div>
@@ -59,12 +68,16 @@
     </template>
 
     {{-- Input Hidden --}}
-    <input name="img" id="img" type='file' accept="image/*"
-        @change="
-        uploadInfo.src = URL.createObjectURL(event.target.files[0]);
-        uploadInfo.size = event.target.files[0].size;
-        uploadInfo.name = event.target.files[0].name;"
-        x-on:input.change="hasError = false" class="hidden" />
+    <input
+        class="hidden"
+        id="img"
+        name="img"
+        type='file'
+        x-ref="img"
+        accept="image/jpg, image/jpeg, image/png"
+        @change="handlePreview"
+        x-on:input.change="hasError = false"
+    />
 
     @error('img')
         <p class="text-red-500" x-show="hasError">{{ $message }}</p>

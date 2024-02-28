@@ -1,31 +1,58 @@
 <x-admin-layout>
     <x-slot:pageTitle>Edit Post</x-slot:pageTitle>
     <x-slot:mainContent>
-        <section class="body-padding mx-auto mt-10 mb-44">
-            <div class="flex justify-between items-center gap-2 w-[500px] mx-auto">
+        <section class="body-padding mx-auto mb-44 mt-10">
+            <div class="mx-auto flex w-[500px] items-center justify-between gap-2">
                 @php
                     $backUrl = url()->previous();
                     if (url()->full() === url()->previous()) {
                         $backUrl = '/' . getAdminUrl() . '/dashboard/posts';
                     }
                 @endphp
-                <button class="text-2xl text-red-300 hover:text-red-500 transition">
+                <button class="text-2xl text-red-300 transition hover:text-red-500">
                     <a href="{{ $backUrl }}">
                         <x-feathericon-arrow-left-circle class="h-14 w-14" />
                     </a>
                 </button>
-                <x-util.button-v1 text="Edit Post - {{ $currentPost->title }}" isActive fullWidth />
+                <x-util.button-v1
+                    text="Edit Post - {{ $currentPost->title }}"
+                    isActive
+                    fullWidth
+                />
             </div>
-            <form method="POST" action="/{{ getAdminUrl() }}/dashboard/posts/{{ $currentPost->id }}"
-                class="w-[500px] m-auto" enctype="multipart/form-data">
+            <form
+                class="m-auto w-[500px]"
+                method="POST"
+                action="/{{ getAdminUrl() }}/dashboard/posts/{{ $currentPost->id }}"
+                enctype="multipart/form-data"
+            >
                 @csrf
                 @method('PATCH')
+
                 <x-util.input-image :prevData="$currentPost->imgUrl" />
-                <x-util.input label="Title" name="title" placeholder="Post Name..." type="text" required
-                    :prevData="$currentPost->title" autofocus />
-                <x-util.input label="Excerpt" name="excerpt" placeholder="Excerpt..." type="text" required
-                    :prevData="$currentPost->excerpt" />
-                <x-util.input-text-area label="Body of post" name="body" required :prevData="$currentPost->body" />
+                <x-util.input
+                    name="title"
+                    type="text"
+                    label="Title"
+                    placeholder="Post Name..."
+                    required
+                    :prevData="$currentPost->title"
+                    autofocus
+                />
+                <x-util.input
+                    name="excerpt"
+                    type="text"
+                    label="Excerpt"
+                    placeholder="Excerpt..."
+                    required
+                    :prevData="$currentPost->excerpt"
+                />
+                <x-util.input-text-area
+                    name="body"
+                    label="Body of post"
+                    required
+                    :prevData="$currentPost->body"
+                />
 
                 @php
                     $prevPublishedAt = null;
@@ -33,20 +60,31 @@
                         $prevPublishedAt = date('Y-m-d', strtotime($currentPost->published_at));
                     }
                 @endphp
-                <x-util.input label="Publication Date" name="published_at" placeholder="Published At..." type="date"
-                    :prevData="$prevPublishedAt" />
+                <x-util.input
+                    name="published_at"
+                    type="date"
+                    label="Publication Date"
+                    placeholder="Published At..."
+                    :prevData="$prevPublishedAt"
+                />
                 <div class="my-4">
-                    <label for="category_id" class="font-semibold w-full">Category</label>
-                    <select class="px-4 py-2 rounded-full w-full my-2" name="category_id" id="category_id">
+                    <label class="w-full font-semibold" for="category_id">Category</label>
+                    <select
+                        class="my-2 w-full rounded-full px-4 py-2"
+                        id="category_id"
+                        name="category_id"
+                    >
                         @foreach ($categories as $category)
                             @if (old('category_id'))
                                 <option value={{ $category->id }}
-                                    {{ old('category_id') === $category->id ? 'selected' : '' }}>
+                                    {{ old('category_id') === $category->id ? 'selected' : '' }}
+                                >
                                     {{ $category->name }}
                                 </option>
                             @else
                                 <option value={{ $category->id }}
-                                    {{ $currentPost->category_id === $category->id ? 'selected' : '' }}>
+                                    {{ $currentPost->category_id === $category->id ? 'selected' : '' }}
+                                >
                                     {{ $category->name }}
                                 </option>
                             @endif
